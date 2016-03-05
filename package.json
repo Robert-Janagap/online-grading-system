@@ -1,0 +1,34 @@
+{
+  "name": "online-grading-system",
+  "version": "1.0.0",
+  "description": "online grading system a web app for teachers and students also in parents.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-sass": "^2.2.0",
+    "sass": "^0.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robert-Janagap/online-grading-system.git"
+  },
+  "keywords": [
+    "online",
+    "grading",
+    "system"
+  ],
+  "author": "Robert Janagap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Robert-Janagap/online-grading-system/issues"
+  },
+  "homepage": "https://github.com/Robert-Janagap/online-grading-system#readme"
+}

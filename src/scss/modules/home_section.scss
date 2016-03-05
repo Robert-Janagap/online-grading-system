@@ -1,0 +1,68 @@
+
+.features ul{
+	list-style: none;
+	text-align: center;
+}
+.feature_title{
+	margin-top:14px;
+font-weight: bold;
+font-family: oxygen;
+font-size: 1.1rem;
+}
+.feature_text{
+	margin-top:4px;
+}
+section{
+	margin: 100px 0;
+	text-align:center;
+}
+.input_field input,
+.input_field textarea
+{
+	width: 100%;
+}
+.input_field textarea{
+	resize: none;
+	height: 200px;
+}
+.contact_us form{
+	text-align: left;
+}
+.form_guide{
+	margin-bottom: 8px;
+color: rgb(65, 65, 65);
+font-variant: small-caps;
+}
+.contact_us_text{
+	margin-bottom: 52px;
+}
+.sub_banner{
+	width: 70%;
+margin: 0 auto;
+margin-bottom: 100px;
+}
+footer{
+	width: 100%;
+	background: #000;
+	color: #fff;
+	ul{
+		list-style: none;
+		display: inline-block;
+		margin-bottom: 0px;
+		float: right;
+		li{
+			display: inline-block;
+			margin-left: 15px;
+			margin-bottom: 0;
+		}
+		li img{
+			width: 32px;
+			height: 32px;
+			vertical-align: middle;
+		}
+	}
+}
+.footer_content{
+	height: 80px;
+	line-height: 80px;
+}

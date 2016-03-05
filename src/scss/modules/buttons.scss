@@ -1,0 +1,16 @@
+.btn_primary{
+	display: inline-block;
+background: rgb(0, 191, 243) none repeat scroll 0% 0%;
+padding: 8px 22px;
+border-radius: 4px;
+letter-spacing: 1px;
+color:#fff;
+text-transform: uppercase;
+cursor: pointer;
+	&:hover{
+		background: transparent;
+		color: #00dbff;
+		transition: all .3s ease-in-out;
+		text-decoration: underline;
+	}
+}
