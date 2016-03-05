@@ -1,0 +1,84 @@
+.blue_header{
+	width: 100%;
+background: rgb(0, 85, 230) none repeat scroll 0% 0%;
+
+	li{
+		margin-bottom: 0;
+	}
+	.logo{
+		color: #fff;
+	}
+}
+.sidebar_nav{
+	border-right: 1px solid rgb(204, 204, 204);
+	height: 100%;
+	position: fixed;
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+	ul{
+		list-style: none;
+	}
+	a{
+		padding: 12px 45px;
+		display: block;
+	}
+	li{
+		position: relative;
+		border-bottom: 1px solid #3968f0;
+		margin: 0;
+		transition: all .2s ease-in-out;
+		&:hover{
+			box-shadow: 0px 0px 7px rgb(15, 51, 140);
+		}
+	}
+	img{
+		position: absolute;
+		left: 9px;
+		top: 25%;
+	}
+}
+.system_content{
+	position: absolute;
+	left: 17%;
+	margin-left: 0;
+	&_title{
+		margin-top: 24px;
+	}
+	table{
+		width: 60%;
+		th{		
+			padding-left: 13px;
+			color: #fff;
+			width: 50%;
+			font-size: 1.1rem;
+			border-bottom: 0;
+		}
+		.th_col1{
+			background: #01cb14;
+			border-top-left-radius: 10px;
+			position: relative;
+			img{
+				position: absolute;
+				right: 18px;
+			}
+		}
+		.th_col2{
+			background: #00c0ff;
+			border-top-right-radius: 10px;
+		}
+		tr{
+
+		}
+		td{
+			padding-left: 13px;
+			text-transform: uppercase;
+			position: relative
+		}
+		.student_count{
+			position: absolute;
+			right: 18px;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+	}
+}

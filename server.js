@@ -17,7 +17,7 @@ app.use( express.static( path.join( __dirname,'/public' ) ) );
 
 //define routes
 // server side routes
-
+var teacher = require('./app/routes/teacher.js');
 // client side routes
 var index = require('./app/routes/index.js');
 
@@ -26,6 +26,7 @@ var index = require('./app/routes/index.js');
 
 // client side
 app.use( '/',index );
+app.use( '/teacher',teacher );
 
 //server listening
 http.createServer( app ).listen( port,function() {
