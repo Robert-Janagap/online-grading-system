@@ -111,25 +111,35 @@ html(lang="en")
                                     td 35%
                                     td 32%
                                     td 44%
-                //class view   
-                ul.breadcrumb
-                    li
-                        a(href="") Class Name
-                    li.active
-                        a(href="") Attendance
+                //Attendance View 
+                    ul.breadcrumb
+                        li
+                            a(href="") Class Name
+                        li.active
+                            a(href="") Attendance
 
-                h2.content_title Attendance
-                ul.content_view_tabs
-                    li.active 1
-                    li 2
-                    li 3
-                    li 4
-                .tab.u-cf
-                    h4 date here
-                    .btm_2 Add Column
-                    span.total_days Total: <span>5</span>
-                    .overflow
-                        table
+                    h2.content_title Attendance
+                    ul.content_view_tabs
+                        li.active 1
+                        li 2
+                        li 3
+                        li 4
+                    .tab
+                        h4 date here
+                        .tab_top_content
+                            .btn_2 Add Column
+                            span.total_days Total: <span>5</span>
+                            .color_guide
+                                span
+                                    span.clr_black 
+                                    | Good
+                                span
+                                    span.clr_yellow 
+                                    | Warning
+                                span
+                                    span.clr_drop 
+                                    | Drop
+                        table.margin_top
                             thead
                                 tr
                                     th Name
@@ -138,32 +148,105 @@ html(lang="en")
                                     th 1-2-14 Wednesday
                                     th 1-2-15 Thursday
                                     th 1-2-16 Friday
+                                    th 1-2-16 Friday
+                                    th 1-2-16 Friday
+                                    th 1-2-16 Friday
+                                    th 1-2-16 Friday
+                                    th 1-2-16 Friday
+                                    th Total
                             tbody
                                 tr
-                                    td Wizardz
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
+                                    td Wizardz ( 3 )
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 15
                                 tr
-                                    td Xfol
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
+                                    td Xfol ( 4 )
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 15
                                 tr
-                                    td Nitsuj
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
+                                    td Nitsuj ( 5 )
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 15
                                 tr
-                                    td Loda
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
+                                    td Loda ( 6 )
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 0
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 1
+                                    td 15
+                ul.breadcrumb
+                    li
+                        a(href="") Class Name
+                    li.active
+                        a(href="") Students
+
+                h2.content_title Student List
+                .tab.student_tab
+                    h4 Algebra / 2-3-16aa
+                    table.margin_top
+                        thead
+                            tr
+                                th Name
+                                th ID
+                                th 
+                                    a(href="")
+                                        img(src="/img/png_settings.png", alt="")
+                        tbody
+                            tr
+                                td Wizardz ( 3 )
+                                td 12321
+                                td 
+                                    a(href="")
+                                        
+                                        img(src="/img/png_settings.png", alt="")
+                            tr
+                                td Xfol ( 4 )
+                                td 13123
+                                td 
+                                     a(href="")
+                                        img(src="/img/png_settings.png", alt="")
+                            tr
+                                td Nitsuj ( 5 )
+                                td 123213
+                                td 
+                                     a(href="")
+                                        img(src="/img/png_settings.png", alt="")
+                            tr
+                                td Loda ( 6 )
+                                td 123213
+                                td 
+                                     a(href="")
+                                        img(src="/img/png_settings.png", alt="")
