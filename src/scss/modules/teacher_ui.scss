@@ -89,13 +89,14 @@ background: rgb(0, 85, 230) none repeat scroll 0% 0%;
 .content_view_tabs{
 	list-style: 0;
 	margin: 0;
+	margin-left: 12px;
 	li{
 		margin: 0;
 		display: inline-block;
 		background-color: #89bafc;
 		padding: 6px 53px;
 		border-radius: 10px 10px 0px 0px;
-		color: rgb(255, 255, 255);
+		color: #89bafc;
 		font-size: 1.4rem;
 		font-weight: bold;
 		cursor: pointer;
@@ -104,9 +105,11 @@ background: rgb(0, 85, 230) none repeat scroll 0% 0%;
 	}
 	li.active{
 		background-color: #3b8dfd;
+		color: #fff;
 	}
 	li:hover{
 		background-color: #3b8dfd;
+		color: #fff;
 	}
 }
 .tab{
@@ -116,6 +119,7 @@ background: rgb(0, 85, 230) none repeat scroll 0% 0%;
 	padding: 0px 25px;
 	border-top: 1px solid rgba(165, 165, 165, 0.3);
 	overflow-x: scroll;
+	border-radius: 8px;
 	table{
 		width: 100%;
 	}
