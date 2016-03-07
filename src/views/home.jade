@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-html(lang="en")
+html(lang="en" ng-app="projectRouter")
     head
         title Online Registration System
     body
@@ -15,11 +15,23 @@ html(lang="en")
                                 a(href="#features") Features
                             li
                                 a(href="#contact") Contact
+                            li
+                                toggle-modal.logIn_btn Login
                 .banner.u-cf
                     h2.tagline Get <span class="banner_textHighlights">Motivated</span> and <span class="banner_textHighlights">Inspired</span> in your <span>Grades</span>
                     h4.sub_tagline Join us in our quest to help you to be motivated and inspired through your efforts in school
                     a(href="").btn_primary Try It Now
         .container.u-cf
+            .logIn_form.modal
+                form
+                    toggle-modal
+                        span X
+                    label(for="username") Username
+                    input(type="text")
+                    label(for="password") Password
+                    input(type="password")
+                    button sign-in
+                    p does not have account yet <a href="">sign-up</a> here.
             section.about
                 h3 About
                 p Online Grading System your tool to help you calculate your grades and see your classes or subjects performance.Its design to help you updated in your grades through smart phones,tablet or in your desktop. Online Grading System not only keep you updated and work in your grades but also help you organise your work at school.

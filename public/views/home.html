@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="projectRouter">
   <head>
     <title>Online Registration System</title>
   </head>
@@ -12,6 +12,9 @@
               <li><a href="#about">About</a></li>
               <li><a href="#features">Features</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li>
+                <toggle-modal class="logIn_btn">Login</toggle-modal>
+              </li>
             </ul>
           </nav>
         </div>
@@ -22,6 +25,17 @@
       </div>
     </header>
     <div class="container u-cf">
+      <div class="logIn_form modal">
+        <form>
+          <toggle-modal><span>X</span></toggle-modal>
+          <label for="username">Username</label>
+          <input type="text"/>
+          <label for="password">Password</label>
+          <input type="password"/>
+          <button>sign-in</button>
+          <p>does not have account yet <a href="">sign-up</a> here.</p>
+        </form>
+      </div>
       <section class="about">
         <h3>About</h3>
         <p>Online Grading System your tool to help you calculate your grades and see your classes or subjects performance.Its design to help you updated in your grades through smart phones,tablet or in your desktop. Online Grading System not only keep you updated and work in your grades but also help you organise your work at school.</p>

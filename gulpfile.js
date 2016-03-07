@@ -21,9 +21,11 @@ gulp.task( 'sass',function(){
 
 } );
 
+
 gulp.task( 'watching',function(){
     gulp.watch( './src/scss/**/*.scss',[ 'sass' ] );
     gulp.watch( './src/**/*.jade',[ 'jade' ] );
+
 	} );
 
 gulp.task('default', ['watching']);

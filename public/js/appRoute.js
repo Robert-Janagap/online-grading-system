@@ -14,3 +14,17 @@ app.config(function($routeProvider){
 		});
 });
 
+// toggle log in modal
+app.directive('toggleModal', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+			
+		 	element.on( 'click',function ( event ){
+				$('.modal').toggleClass('show');
+		    } );
+
+		}
+	};
+});
