@@ -1,10 +1,11 @@
 var gulp = require('gulp');
 var jade = require('gulp-jade');
 var sass = require('gulp-sass');
-
+var plumber = require('gulp-plumber');
 
 gulp.task('jade', function(){
 	return gulp.src('src/**/*.jade')
+			//.pipe(plumber())
 			.pipe(jade({
 				pretty: true
 				}))
@@ -14,6 +15,7 @@ gulp.task('jade', function(){
 gulp.task( 'sass',function(){
 
 	return gulp.src( './src/scss/*.scss' )
+		//.pipe(plumber())
 	    .pipe( sass({outputStyle: 'compressed'}) )
 	    .pipe( gulp.dest( 'public/css/' ) );
 

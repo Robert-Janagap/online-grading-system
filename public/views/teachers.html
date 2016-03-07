@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Fuck Yeah</title>
+    <title>Teacher Name</title>
   </head>
   <body>
     <header class="blue_header u-cf">
@@ -29,34 +29,141 @@
           <li><a href="">Settings<img src="/img/icn_settings.png" alt=""/></a></li>
         </ul>
       </div>
-      <div class="system_content ten columns">
-        <h2 class="system_content_title">Your Classes</h2>
-        <table>
-          <thead>
-            <tr>
-              <th class="th_col1">Class <img src="/img/icn_student_count.png"></th>
-              <th class="th_col2">Class Code</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a></td>
-              <td>2-3-16-aa</td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a></td>
-              <td>2-4-12ab</td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a></td>
-              <td>3-2-19ac2 </td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a></td>
-              <td>2-2-13aD </td>
-            </tr>
-          </tbody>
-        </table>
+      <!--Class list view-->
+      <!--.class_list.ten.columns.content_view
+      h2.content_title Your Classes
+      table
+          thead
+              tr
+                  th.th_col1 Class <img src="/img/icn_student_count.png">
+                  th.th_col2 Class Code
+          tbody
+              tr
+                  td <img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a>
+                  td 2-3-16-aa
+              tr
+                  td <img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a>
+                  td 2-4-12ab
+              tr
+                  td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a>
+                  td 3-2-19ac2 
+              tr
+                  td <img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a>
+                  td 2-2-13aD 
+      -->
+      <div class="content ten columns content_view">
+        <!--class view   
+        ul.breadcrumb
+            li
+                a(href="") Class Name 
+        h2.content_title Class Name
+        ul.content_view_tabs
+            li.active 1
+            li 2
+            li 3
+            li 4
+        .tab.u-cf
+            h3 Grade
+            table
+                thead
+                    tr
+                        th Name
+                        th Quiz
+                        th Attendance
+                        th Laboratory
+                        th Exam
+                        th Grade
+                tbody
+                    tr
+                        td Wizardz
+                        td 3%
+                        td 20%
+                        td 35%
+                        td 32%
+                        td 44%
+                    tr
+                        td Xfol
+                        td 3%
+                        td 20%
+                        td 35%
+                        td 32%
+                        td 44%
+                    tr
+                        td Nitsuj
+                        td 3%
+                        td 20%
+                        td 35%
+                        td 32%
+                        td 44%
+                    tr
+                        td Loda
+                        td 3%
+                        td 20%
+                        td 35%
+                        td 32%
+                        td 44%
+        -->
+        <!--class view   -->
+        <ul class="breadcrumb">
+          <li><a href="">Class Name</a></li>
+          <li class="active"><a href="">Attendance</a></li>
+        </ul>
+        <h2 class="content_title">Attendance</h2>
+        <ul class="content_view_tabs">
+          <li class="active">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ul>
+        <div class="tab u-cf">
+          <div class="btm_2">Add Column</div><span>Total: <span>5</span></span>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quiz</th>
+                <th>Attendance</th>
+                <th>Laboratory</th>
+                <th>Exam</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Wizardz</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Xfol</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Nitsuj</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Loda</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
