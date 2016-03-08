@@ -40,32 +40,32 @@ html(lang="en")
                         a(href="" ) Settings
                             img(src="/img/icn_settings.png", alt="")
             //Class list view
-            //.class_list.ten.columns.content_view
-                h2.content_title Your Classes
-                table
-                    thead
-                        tr
-                            th.th_col1 Class <img src="/img/icn_student_count.png">
-                            th.th_col2 Class Code
-                    tbody
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a>
-                            td 2-3-16-aa
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a>
-                            td 2-4-12ab
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a>
-                            td 3-2-19ac2 
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a>
-                            td 2-2-13aD 
+                .class_list.ten.columns.content_view
+                    h2.content_title Your Classes
+                    table
+                        thead
+                            tr
+                                th.th_col1 Class <img src="/img/icn_student_count.png">
+                                th.th_col2 Class Code
+                        tbody
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a>
+                                td 2-3-16-aa
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a>
+                                td 2-4-12ab
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a>
+                                td 3-2-19ac2 
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a>
+                                td 2-2-13aD 
             .content.ten.columns.content_view
                 //class view   
                     ul.breadcrumb
                         li
-                            a(href="") Class Name 
-                    h2.content_title Class Name
+                            a(href="") Algebra
+                    h2.content_title Algebra
                     ul.content_view_tabs
                         li.active 1
                         li 2
@@ -114,7 +114,7 @@ html(lang="en")
                 //Attendance View 
                     ul.breadcrumb
                         li
-                            a(href="") Class Name
+                            a(href="") Algebra
                         li.active
                             a(href="") Attendance
 
@@ -125,7 +125,7 @@ html(lang="en")
                         li 3
                         li 4
                     .tab
-                        h4 date here
+                        h4 March 8 2016
                         .tab_top_content
                             .btn_2 Add Column
                             span.total_days Total: <span>5</span>
@@ -169,7 +169,7 @@ html(lang="en")
                                     td 1
                                     td 15
                                 tr
-                                    td Xfol ( 4 )
+                                    td.clr_drop Xfol ( 4 )
                                     td 0
                                     td 1
                                     td 1
@@ -182,7 +182,7 @@ html(lang="en")
                                     td 1
                                     td 15
                                 tr
-                                    td Nitsuj ( 5 )
+                                    td.clr_warning Nitsuj ( 5 )
                                     td 0
                                     td 1
                                     td 1
@@ -210,7 +210,7 @@ html(lang="en")
                 //student list view
                     ul.breadcrumb
                         li
-                            a(href="") Class Name
+                            a(href="") Algebra
                         li.active
                             a(href="") Students
 
@@ -227,26 +227,26 @@ html(lang="en")
                                             img(src="/img/png_settings.png", alt="")
                             tbody
                                 tr
-                                    td Wizardz ( 3 )
+                                    td Wizardz
                                     td 12321
                                     td 
                                         a(href="")
                                             
                                             img(src="/img/png_settings.png", alt="")
                                 tr
-                                    td Xfol ( 4 )
+                                    td Xfol
                                     td 13123
                                     td 
                                          a(href="")
                                             img(src="/img/png_settings.png", alt="")
                                 tr
-                                    td Nitsuj ( 5 )
+                                    td Nitsuj
                                     td 123213
                                     td 
                                          a(href="")
                                             img(src="/img/png_settings.png", alt="")
                                 tr
-                                    td Loda ( 6 )
+                                    td Loda
                                     td 123213
                                     td 
                                          a(href="")
@@ -254,7 +254,7 @@ html(lang="en")
                 //quiz, assignment, laboratory view
                     ul.breadcrumb
                         li
-                            a(href="") Class Name
+                            a(href="") Algebra
                         li.active
                             a(href="") Quiz
 
@@ -299,7 +299,7 @@ html(lang="en")
                                     td 10/15
                     ul.breadcrumb
                         li
-                            a(href="") Class Name
+                            a(href="") Algebra
                         li.active
                             a(href="") Assignments
                     h2.content_title Assignments
@@ -343,7 +343,7 @@ html(lang="en")
                                     td 10/15
                     ul.breadcrumb
                         li
-                            a(href="") Class Name
+                            a(href="") Algebra
                         li.active
                             a(href="") Laboratory
                     h2.content_title Laboratory
@@ -385,36 +385,84 @@ html(lang="en")
                                     td 15/15
                                     td 17/20
                                     td 15/15
-                ul.breadcrumb
-                    li
-                        a(href="") Class Name
-                    li.active
-                        a(href="") Exam
-                h2.content_title Exam
-                ul.content_view_tabs
-                    li 1
-                    li.active 2
-                    li 3
-                    li 4
-                .tab
-                    h4
-                    .tab_top_content
-                        .btn_2 Add Exam
-                    table.margin_top
-                        thead
-                            tr
-                                th Name
-                                th 1-2-12 Monday
-                        tbody
-                            tr
-                                td Wizardz
-                                td 15/15
-                            tr
-                                td Xfol
-                                td 15/15
-                            tr
-                                td Nitsuj
-                                td 15/15
-                            tr
-                                td Loda
-                                td 15/15
+                    ul.breadcrumb
+                        li
+                            a(href="") Algebra
+                        li.active
+                            a(href="") Exam
+                    h2.content_title Exam
+                    ul.content_view_tabs
+                        li 1
+                        li.active 2
+                        li 3
+                        li 4
+                    .tab
+                        h4
+                        .tab_top_content
+                            .btn_2 Add Exam
+                        table.margin_top
+                            thead
+                                tr
+                                    th Name
+                                    th 1-2-12 Monday
+                            tbody
+                                tr
+                                    td Wizardz
+                                    td 15/15
+                                tr
+                                    td Xfol
+                                    td 15/15
+                                tr
+                                    td Nitsuj
+                                    td 15/15
+                                tr
+                                    td Loda
+                                    td 15/15
+                .settings 
+                    ul.breadcrumb
+                        li
+                            a(href="") Algebra
+                        li.active
+                            a(href="") Settings
+                    h2.content_title Settings
+                    h4 Class Settings
+                    form.row
+                        .input_group.row
+                            label(for="Class name").four.columns Class Name
+                            input(type="text").four.columns  
+                            span.four.columns Ex. Algebra 3-A
+                        .input_group.row
+                            label(for="School Year").four.columns School Year
+                            select.four.columns 
+                                option(value="") 2016-2017 
+                            span.four.columns The school year  
+                        .input_group.row
+                            label(for="Grading Period").four.columns Grading Period
+                            input(type="number" value=4 min="3" max="4").four.columns
+                            span.four.columns Grading Period in each semester, trimester or quarter  
+                    h4 Grade Settings 
+                    form.row.u-cf
+                        .row
+                            .input_group.four.columns
+                                label(for="attendance") Attendance
+                                input(type="number" min="1" max="100")
+                                span  %
+                            .input_group.four.columns
+                                label(for="Quiz") Quiz
+                                input(type="number" min="1" max="100")
+                                span  %
+                            .input_group.four.columns
+                                label(for="Assignments") Assignments
+                                input(type="number" min="1" max="100")
+                                span  %
+                        .row
+                            .input_group.four.columns
+                                label(for="Quiz") Laboratory
+                                input(type="number" min="1" max="100")
+                                span  %
+                            .input_group.four.columns
+                                label(for="Quiz") Exam
+                                input(type="number" min="1" max="100")
+                                span  %
+                        button.u-cf Submit
+
