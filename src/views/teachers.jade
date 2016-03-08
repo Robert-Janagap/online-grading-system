@@ -418,51 +418,83 @@ html(lang="en")
                                 tr
                                     td Loda
                                     td 15/15
-                .settings 
-                    ul.breadcrumb
-                        li
-                            a(href="") Algebra
-                        li.active
-                            a(href="") Settings
-                    h2.content_title Settings
-                    h4 Class Settings
-                    form.row
-                        .input_group.row
-                            label(for="Class name").four.columns Class Name
-                            input(type="text").four.columns  
-                            span.four.columns Ex. Algebra 3-A
-                        .input_group.row
-                            label(for="School Year").four.columns School Year
-                            select.four.columns 
-                                option(value="") 2016-2017 
-                            span.four.columns The school year  
-                        .input_group.row
-                            label(for="Grading Period").four.columns Grading Period
-                            input(type="number" value=4 min="3" max="4").four.columns
-                            span.four.columns Grading Period in each semester, trimester or quarter  
-                    h4 Grade Settings 
-                    form.row.u-cf
-                        .row
-                            .input_group.four.columns
-                                label(for="attendance") Attendance
-                                input(type="number" min="1" max="100")
-                                span  %
-                            .input_group.four.columns
-                                label(for="Quiz") Quiz
-                                input(type="number" min="1" max="100")
-                                span  %
-                            .input_group.four.columns
-                                label(for="Assignments") Assignments
-                                input(type="number" min="1" max="100")
-                                span  %
-                        .row
-                            .input_group.four.columns
-                                label(for="Quiz") Laboratory
-                                input(type="number" min="1" max="100")
-                                span  %
-                            .input_group.four.columns
-                                label(for="Quiz") Exam
-                                input(type="number" min="1" max="100")
-                                span  %
-                        button.u-cf Submit
-
+                //settings view
+                    .settings 
+                        ul.breadcrumb
+                            li
+                                a(href="") Algebra
+                            li.active
+                                a(href="") Settings
+                        h2.content_title Settings
+                        h4.title_border Class Settings
+                        form.row
+                            .input_group.row
+                                label(for="Class name").four.columns Class Name
+                                input(type="text").four.columns  
+                                span.four.columns Ex. Algebra 3-A
+                            .input_group.row
+                                label(for="School Year").four.columns School Year
+                                select.four.columns 
+                                    option(value="") 2016-2017 
+                                span.four.columns The school year  
+                            .input_group.row
+                                label(for="Grading Period").four.columns Grading Period
+                                input(type="number" value=4 min="3" max="4").four.columns
+                                span.four.columns Grading Period in each semester, trimester or quarter  
+                        h4 Grade Settings 
+                        form.row.u-cf
+                            .row
+                                .input_group.four.columns
+                                    label(for="attendance") Attendance
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Quiz
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Assignments") Assignments
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                            .row
+                                .input_group.four.columns
+                                    label(for="Quiz") Laboratory
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Exam
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                            button.u-cf Submit
+                //account settings
+                    .accout_settings
+                        h2.content_title Accout Settings
+                        h4.title_border Edit Account
+                        form
+                            .input_group.row
+                                label(for="Username").three.columns Username
+                                input(type="text").four.columns  
+                                span.four.columns Choose Username. Letters and Number only
+                            .input_group.row
+                                label(for="Your name").three.columns Your Name
+                                input(type="text").four.columns  
+                                span.four.columns Enter Your Full Name
+                            .input_group.row
+                                label(for="Class name").three.columns Email
+                                input(type="email").four.columns  
+                                span.four.columns Enter Your Email Address
+                            .input_group.row
+                                label(for="Class name").three.columns Phone
+                                input(type="tel").four.columns  
+                                span.four.columns Enter Your Phone Number
+                        h4.title_border New Password
+                        form
+                            .input_group.row
+                                label(for="Username").three.columns New Password
+                                input(type="password").four.columns  
+                                span.four.columns Enter a new password or leave blank to keep the same
+                            .input_group.row
+                                label(for="Username").three.columns Confirm New Password
+                                input(type="password").four.columns  
+                                span.four.columns Enter above password or leave blank to keep the same
+                            button Submit

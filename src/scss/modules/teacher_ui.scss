@@ -250,9 +250,11 @@
 		vertical-align: bottom;
 	}
 }
-.settings h4{
+.title_border,
+{
 	border-bottom: 2px solid rgb(0, 85, 230);
 text-transform: uppercase;
+margin-bottom: 25px;
 }
 .input_group{
 	line-height: 38px;
