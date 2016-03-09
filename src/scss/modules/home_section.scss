@@ -102,7 +102,7 @@ cursor: pointer;
 		padding: 20px;
 		border-radius: 4px;
 		position: relative;
-		span{
+		.btn_close{
 			position: absolute;
 			top: -15px;
 			right: -15px;
@@ -127,5 +127,28 @@ cursor: pointer;
 	p{
 		margin-top: 5px;
 		font-size: 14px;
+	}
+}
+.logIn_show{
+	display: block
+}
+.signUp{
+	width: 28%;
+	display: none;
+	&_toggle{
+		display: block;
+	}
+	h4{
+		margin: 0;
+		border-bottom: 1px solid rgb(0, 228, 255);
+text-transform: uppercase;
+margin-bottom: 14px;
+	}
+	input[type="checkbox"]{
+		width: 0;
+	}
+	.type_label{
+		display: inline-block;
+		margin-right: 15px;
 	}
 }

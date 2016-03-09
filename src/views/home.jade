@@ -23,15 +23,43 @@ html(lang="en" ng-app="projectRouter")
                     a(href="").btn_primary Try It Now
         .container.u-cf
             .logIn_form.modal
-                form
+                form.logIn
                     toggle-modal
-                        span X
+                        span.btn_close X
                     label(for="username") Username
                     input(type="text")
                     label(for="password") Password
                     input(type="password")
                     button sign-in
-                    p does not have account yet <a href="">sign-up</a> here.
+                    p does not have account yet <sign-up><a href="">sign-up</a></sign-up> here.
+                form.signUp
+                    toggle-modal
+                        span.btn_close X
+                    h4 Sign up
+                    .input_group
+                        label(for="name") You Name
+                        input(type="text" placeholder="Enter your full name")
+                    .input_group
+                        label(for="Email") Your Email
+                        input(type="Email" placeholder="Enter your email address")
+                    .input_group
+                        label(for="username") username
+                        input(type="text" placeholder="Choose username")
+                    .input_group
+                        label(for="password") Password
+                        input(type="password" placeholder="Choose a password")
+                    .input_group
+                        label(for="confirm_password") Confirm Password
+                        input(type="password" placeholder="Re-enter your password above")
+                    .input_group
+                        label(for="") Type
+                        label(for="student").type_label
+                            input(type="checkbox" name="student" id="student" checked)
+                            |  Student
+                        label(for="teacher").type_label
+                            input(type="checkbox" name="teacher" id="teacher")
+                            |  Teacher     
+                    button Create my Accout
             section.about
                 h3 About
                 p Online Grading System your tool to help you calculate your grades and see your classes or subjects performance.Its design to help you updated in your grades through smart phones,tablet or in your desktop. Online Grading System not only keep you updated and work in your grades but also help you organise your work at school.

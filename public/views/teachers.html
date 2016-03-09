@@ -32,6 +32,7 @@
       <!--Class list view
       .class_list.ten.columns.content_view
           h2.content_title Your Classes
+          .btn_2 Create New Class
           table
               thead
                   tr
@@ -52,57 +53,66 @@
                       td 2-2-13aD 
       -->
       <div class="content ten columns content_view">
-        <!--class view   
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-        h2.content_title Algebra
-        ul.content_view_tabs
-            li.active 1
-            li 2
-            li 3
-            li 4
-        .tab.u-cf
-            h3 Grade
-            table
-                thead
-                    tr
-                        th Name
-                        th Quiz
-                        th Attendance
-                        th Laboratory
-                        th Exam
-                        th Grade
-                tbody
-                    tr
-                        td Wizardz
-                        td 3%
-                        td 20%
-                        td 35%
-                        td 32%
-                        td 44%
-                    tr
-                        td Xfol
-                        td 3%
-                        td 20%
-                        td 35%
-                        td 32%
-                        td 44%
-                    tr
-                        td Nitsuj
-                        td 3%
-                        td 20%
-                        td 35%
-                        td 32%
-                        td 44%
-                    tr
-                        td Loda
-                        td 3%
-                        td 20%
-                        td 35%
-                        td 32%
-                        td 44%
-        -->
+        <!--class view   -->
+        <ul class="breadcrumb">
+          <li><a href="">Algebra</a></li>
+        </ul>
+        <h2 class="content_title">Algebra</h2>
+        <ul class="content_view_tabs">
+          <li class="active">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ul>
+        <div class="tab u-cf">
+          <h4>Grade</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quiz</th>
+                <th>Attendance</th>
+                <th>Laboratory</th>
+                <th>Exam</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Wizardz</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Xfol</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Nitsuj</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+              <tr>
+                <td>Loda</td>
+                <td>3%</td>
+                <td>20%</td>
+                <td>35%</td>
+                <td>32%</td>
+                <td>44%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <!--Attendance View 
         ul.breadcrumb
             li
@@ -268,8 +278,11 @@
                     tr
                         th Name
                         th 1-2-12 Monday
+                            .activity_name activity #1
                         th 1-2-13 Thuesday
+                            .activity_name activity #1
                         th 1-2-14 Wednesday
+                            .activity_name activity #1
                 tbody
                     tr
                         td Wizardz ( 24 )
@@ -312,8 +325,11 @@
                     tr
                         th Name
                         th 1-2-12 Monday
+                            .activity_name activity #1
                         th 1-2-13 Thuesday
+                            .activity_name activity #1
                         th 1-2-14 Wednesday
+                            .activity_name activity #1
                 tbody
                     tr
                         td Wizardz ( 24 )
@@ -356,8 +372,11 @@
                     tr
                         th Name
                         th 1-2-12 Monday
+                            .activity_name activity #1
                         th 1-2-13 Thuesday
+                            .activity_name activity #1
                         th 1-2-14 Wednesday
+                            .activity_name activity #1
                 tbody
                     tr
                         td Wizardz ( 24 )
@@ -431,11 +450,7 @@
                     label(for="School Year").four.columns School Year
                     select.four.columns 
                         option(value="") 2016-2017 
-                    span.four.columns The school year  
-                .input_group.row
-                    label(for="Grading Period").four.columns Grading Period
-                    input(type="number" value=4 min="3" max="4").four.columns
-                    span.four.columns Grading Period in each semester, trimester or quarter  
+                    span.four.columns The school year   
             h4 Grade Settings 
             form.row.u-cf
                 .row
@@ -462,7 +477,7 @@
                         span  %
                 button.u-cf Submit
         -->
-        <!--account settings
+        <!--account
         .accout_settings
             h2.content_title Accout Settings
             h4.title_border Edit Account

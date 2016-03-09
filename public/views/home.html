@@ -26,14 +26,48 @@
     </header>
     <div class="container u-cf">
       <div class="logIn_form modal">
-        <form>
-          <toggle-modal><span>X</span></toggle-modal>
+        <form class="logIn">
+          <toggle-modal><span class="btn_close">X</span></toggle-modal>
           <label for="username">Username</label>
           <input type="text"/>
           <label for="password">Password</label>
           <input type="password"/>
           <button>sign-in</button>
-          <p>does not have account yet <a href="">sign-up</a> here.</p>
+          <p>does not have account yet <sign-up><a href="">sign-up</a></sign-up> here.</p>
+        </form>
+        <form class="signUp">
+          <toggle-modal><span class="btn_close">X</span></toggle-modal>
+          <h4>Sign up</h4>
+          <div class="input_group">
+            <label for="name">You Name</label>
+            <input type="text" placeholder="Enter your full name"/>
+          </div>
+          <div class="input_group">
+            <label for="Email">Your Email</label>
+            <input type="Email" placeholder="Enter your email address"/>
+          </div>
+          <div class="input_group">
+            <label for="username">username</label>
+            <input type="text" placeholder="Choose username"/>
+          </div>
+          <div class="input_group">
+            <label for="password">Password</label>
+            <input type="password" placeholder="Choose a password"/>
+          </div>
+          <div class="input_group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" placeholder="Re-enter your password above"/>
+          </div>
+          <div class="input_group">
+            <label for="">Type</label>
+            <label for="student" class="type_label">
+              <input type="checkbox" name="student" id="student" checked="checked"/> Student
+            </label>
+            <label for="teacher" class="type_label">
+              <input type="checkbox" name="teacher" id="teacher"/> Teacher     
+            </label>
+          </div>
+          <button>Create my Accout</button>
         </form>
       </div>
       <section class="about">

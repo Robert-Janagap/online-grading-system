@@ -6,6 +6,10 @@
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 	li{
 		margin-bottom: 0;
+		input{
+			margin: 0px;
+			width: 160px;
+		}
 	}
 	.logo{
 		color: #fff;
@@ -54,6 +58,7 @@
 .class_list{
 	table{
 		width: 60%;
+		margin-top: 15px;
 		th{		
 			padding-left: 13px;
 			color: #fff;
@@ -73,16 +78,22 @@
 		.th_col2{
 			background: #00c0ff;
 			border-top-right-radius: 10px;
+			position: relative;
+			img{
+				position: absolute;
+				right: 18px;
+			}
 		}
-		tr{
-
+		tbody tr:nth-child(even){
+			background-color: #f6f6f6;
 		}
 		td{
 			padding-left: 13px;
 			text-transform: uppercase;
 			position: relative
 		}
-		.student_count{
+		.student_count, 
+		.student_grade{
 			position: absolute;
 			right: 18px;
 		}
@@ -158,9 +169,6 @@
 	}
 	tr:nth-child(even){
 		background-color: #f6f6f6;
-	}
-	td{
-		border-bottom: 0;
 	}
 }
 .student_list_tab{
@@ -264,5 +272,24 @@ margin-bottom: 25px;
 	}
 	input{
 		width: 80%;
+	}
+}
+.find_class{
+	background-color: #f5f5f5;
+	padding: 18px 0 201px;
+	text-align: center;
+	margin-top: 15px;
+	border-radius: 8px;
+	p{
+		margin-left: -118px;
+		margin-bottom: 6px;
+		color: rgb(108, 108, 108);
+	}
+	input{
+		width: 270px;
+margin-right: 10px;
+	}
+	img{
+		vertical-align: middle;
 	}
 }

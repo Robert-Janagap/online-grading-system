@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        title Student Name
+    body
+        header.blue_header.u-cf
+            .container
+                .navigation.u-cf
+                    a(href="#/").logo Online Grading System
+                    nav 
+                        ul
+                            li
+                                input(type="text")
+                            li
+                                a(href="#about") Classes
+                            li
+                                a(href="#features") Account
+                            li
+                                a(href="#contact") Log-out
+        .row
+            .sidebar_nav.two.columns
+                ul
+                    li
+                        a(href="") Active
+                            img(src="/img/icn_active.png", alt="")
+                    li
+                        a(href="" ) Archive
+                            img(src="/img/icn_archive.png", alt="")
+                    li
+                        a(href="" ) Settings
+                            img(src="/img/icn_quiz.png", alt="")
+            .class_list.ten.columns.content_view
+                h2.content_title Your Classes
+                table
+                    thead
+                        tr
+                            th.th_col1 Class 
+                            th.th_col2 Teacher <img src="/img/icn_grade.png">
+                    tbody
+                        tr
+                            td <img src="/img/icn_book.png"> <a href="">Algebra</a>
+                            td 
+                                a(href="")
+                                    Tom Kumar <a href="" class="student_grade">95%</a>
+                        tr
+                            td <img src="/img/icn_book.png"> <a href="">Science</a>
+                            td 
+                                a(href="")
+                                    Janie Diean <a href="" class="student_grade">95%</a>
+                        tr
+                            td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a>
+                            td 
+                                a(href="")
+                                    Billy Cyrus <a href="" class="student_grade">95%</a>
+                        tr
+                            td <img src="/img/icn_book.png"> <a href="">ADDPROG</a>
+                            td 
+                                a(href="")
+                                    Hannah Babbles <a href="" class="student_grade">95%</a>
+            .content.ten.columns.content_view
+                //.find_class
+                    h4 Welcome in our Online Grading System where you can do updating your grades, looking for Class, stay focus in your study, aware of your grades, and finally get motivated.
+                    p Type your teacher class code
+                    input(type="text")
+                    a(href="") 
+                        img(src="/img/icn_search.png", alt="")
+                //student class view
+                    h2.content_title Algebra
+                    .tab.u-cf
+                        h4 Class Summary
+                        table
+                            thead
+                                tr
+                                    th Grading Period
+                                    th Quiz 
+                                        div ( 25% )
+                                    th Attendance
+                                        div ( 25% )
+                                    th Laboratory
+                                        div ( 25% )
+                                    th Exam
+                                        div ( 25% )
+                                    th Grade
+                            tbody
+                                tr
+                                    td Prelim
+                                    td 
+                                        a(href="") 20%
+                                    td 
+                                        a(href="") 10%
+                                    td 
+                                        a(href="") 30%
+                                    td 
+                                        a(href="") 10%
+                                    td 89%
+                                tr
+                                    td Midterm
+                                    td 
+                                        a(href="") 20%
+                                    td 
+                                        a(href="") 10%
+                                    td 
+                                        a(href="") 30%
+                                    td 
+                                        a(href="") 10%
+                                    td 85%
+                                tr
+                                    td Final
+                                    td 
+                                        a(href="") 20%
+                                    td 
+                                        a(href="") 10%
+                                    td 
+                                        a(href="") 30%
+                                    td 
+                                        a(href="") 10%
+                                    td 78%
+                                tr
+                                    td Total Grade
+                                    td 
+                                    td 
+                                    td 
+                                    td 
+                                    td 89%
+                    ul.breadcrumb
+                            li
+                                a(href="") Algebra
+                            li.active
+                                a(href="") Prelim
+                    h2.content_title Laboratory
+                    .tab
+                        h4 Prelim Report
+                        .tab_top_content
+                            span.total_days Total: <span>120</span>
+                        table.margin_top
+                            thead
+                                tr
+                                    th Name
+                                    th 1-2-12 Monday
+                                        .activity_name Lab #1
+                                    th 1-2-13 Thuesday
+                                        .activity_name Lab #2
+                                    th 1-2-14 Wednesday
+                                        .activity_name Lab #3
+                            tbody
+                                tr
+                                    td Wizardz ( 24 )
+                                    td 15/15
+                                    td 17/20
+                                    td 15/15
