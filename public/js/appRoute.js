@@ -4,10 +4,14 @@ var app = angular.module('projectRouter',['ngRoute']);
 app.config(function($routeProvider){
 	$routeProvider
 		.when('/',{
-			templateUrl: 'views/home.html'
+			templateUrl: 'views/home.html',
+			controller: 'homeCtrl'
 		})
 		.when('/teacher',{
-			templateUrl: 'views/teachers.html'
+			templateUrl: 'views/teachers.html',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/student',{
 			templateUrl: 'views/student.html'
@@ -16,6 +20,33 @@ app.config(function($routeProvider){
 			redirectTo: '/'
 		});
 });
+
+// check if the user login
+var checkLogin = function($q, $timeout, $http, $location, $rootScope){
+	var deferred = $q.defer();
+	$http.get('/loggedin').success(function(data){
+		$rootScope.errorMessage = null;
+		//user is authenticated
+		if(data !=='0'){
+			$rootScope.currentUser = data;
+			deferred.resolve();
+		}else{ //user is not authenticated
+			$rootScope.errorMessage = "can't find the username or password";
+			$location.url('/');
+			deferred.reject();
+		}
+	});
+	return deferred.promise;
+};
+
+app.controller('navCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+	$scope.logOut = function(){
+		$http.post('/logout').success(function(data){
+			$location.url('/');
+			console.log('logout');
+		});
+	}
+}]);
 
 // toggle log in modal
 app.directive('toggleModal', function(){

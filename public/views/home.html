@@ -27,47 +27,47 @@
     <div class="container u-cf">
       <div class="logIn_form modal">
         <form class="logIn">
-          <toggle-modal><span class="btn_close">X</span></toggle-modal>
+          <toggle-modal><span class="btn_close">X</span></toggle-modal><span ng-show="logErrMsg" class="errMsg">{{logErrMsg}}</span>
           <label for="username">Username</label>
-          <input type="text"/>
+          <input type="text" ng-model="user.username"/>
           <label for="password">Password</label>
-          <input type="password"/>
-          <button>sign-in</button>
+          <input type="password" ng-model="user.password"/>
+          <button ng-click="login(user)">sign-in</button>
           <p>does not have account yet <sign-up><a href="">sign-up</a></sign-up> here.</p>
         </form>
         <form class="signUp">
           <toggle-modal><span class="btn_close">X</span></toggle-modal>
-          <h4>Sign up</h4>
+          <h4>Sign up</h4><span ng-show="errMsg" class="errMsg">{{errMsg}}</span>
           <div class="input_group">
             <label for="name">You Name</label>
-            <input type="text" placeholder="Enter your full name"/>
+            <input type="text" placeholder="Enter your full name" ng-model="newUser.name"/>
           </div>
           <div class="input_group">
             <label for="Email">Your Email</label>
-            <input type="Email" placeholder="Enter your email address"/>
+            <input type="text" placeholder="Enter your email address" ng-model="newUser.email"/>
           </div>
           <div class="input_group">
-            <label for="username">username</label>
-            <input type="text" placeholder="Choose username"/>
+            <label for="username">Username</label>
+            <input type="text" placeholder="Choose username" ng-model="newUser.username"/>
           </div>
           <div class="input_group">
             <label for="password">Password</label>
-            <input type="password" placeholder="Choose a password"/>
+            <input type="password" placeholder="Choose a password" ng-model="newUser.password"/>
           </div>
           <div class="input_group">
             <label for="confirm_password">Confirm Password</label>
-            <input type="password" placeholder="Re-enter your password above"/>
+            <input type="password" placeholder="Re-enter your password above" ng-model="newUser.confirmPassword"/>
           </div>
           <div class="input_group">
             <label for="">Type</label>
             <label for="student" class="type_label">
-              <input type="checkbox" name="student" id="student" checked="checked"/> Student
+              <input type="checkbox" name="student" id="student" ng-model="newUser.role" checked="checked" ng-true-value="'student'"/> Student
             </label>
             <label for="teacher" class="type_label">
-              <input type="checkbox" name="teacher" id="teacher"/> Teacher     
+              <input type="checkbox" name="teacher" id="teacher" ng-model="newUser.role" ng-true-value="'teacher'"/> Teacher     
             </label>
           </div>
-          <button>Create my Accout</button>
+          <button ng-click="newUsers(newUser)">Create my Accout</button>
         </form>
       </div>
       <section class="about">

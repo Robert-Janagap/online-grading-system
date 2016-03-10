@@ -26,40 +26,42 @@ html(lang="en" ng-app="projectRouter")
                 form.logIn
                     toggle-modal
                         span.btn_close X
+                    span.errMsg(ng-show="logErrMsg") {{logErrMsg}}
                     label(for="username") Username
-                    input(type="text")
+                    input(type="text" ng-model="user.username")
                     label(for="password") Password
-                    input(type="password")
-                    button sign-in
+                    input(type="password" ng-model="user.password")
+                    button(ng-click="login(user)") sign-in
                     p does not have account yet <sign-up><a href="">sign-up</a></sign-up> here.
                 form.signUp
                     toggle-modal
                         span.btn_close X
                     h4 Sign up
+                    span.errMsg(ng-show="errMsg") {{errMsg}}
                     .input_group
                         label(for="name") You Name
-                        input(type="text" placeholder="Enter your full name")
+                        input(type="text" placeholder="Enter your full name" ng-model="newUser.name")
                     .input_group
                         label(for="Email") Your Email
-                        input(type="Email" placeholder="Enter your email address")
+                        input(type="text" placeholder="Enter your email address" ng-model="newUser.email")
                     .input_group
-                        label(for="username") username
-                        input(type="text" placeholder="Choose username")
+                        label(for="username") Username
+                        input(type="text" placeholder="Choose username" ng-model="newUser.username")
                     .input_group
                         label(for="password") Password
-                        input(type="password" placeholder="Choose a password")
+                        input(type="password" placeholder="Choose a password" ng-model="newUser.password")
                     .input_group
                         label(for="confirm_password") Confirm Password
-                        input(type="password" placeholder="Re-enter your password above")
+                        input(type="password" placeholder="Re-enter your password above" ng-model="newUser.confirmPassword")
                     .input_group
                         label(for="") Type
                         label(for="student").type_label
-                            input(type="checkbox" name="student" id="student" checked)
+                            input(type="checkbox" name="student" id="student" ng-model="newUser.role" checked ng-true-value="'student'")
                             |  Student
                         label(for="teacher").type_label
-                            input(type="checkbox" name="teacher" id="teacher")
+                            input(type="checkbox" name="teacher" id="teacher" ng-model="newUser.role" ng-true-value="'teacher'")
                             |  Teacher     
-                    button Create my Accout
+                    button(ng-click="newUsers(newUser)") Create my Accout
             section.about
                 h3 About
                 p Online Grading System your tool to help you calculate your grades and see your classes or subjects performance.Its design to help you updated in your grades through smart phones,tablet or in your desktop. Online Grading System not only keep you updated and work in your grades but also help you organise your work at school.

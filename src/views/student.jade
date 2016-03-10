@@ -5,18 +5,18 @@ html(lang="en")
     body
         header.blue_header.u-cf
             .container
-                .navigation.u-cf
+                .navigation.u-cf(ng-controller="navCtrl")
                     a(href="#/").logo Online Grading System
                     nav 
                         ul
                             li
                                 input(type="text")
                             li
-                                a(href="#about") Classes
+                                a(href="") Classes
                             li
-                                a(href="#features") Account
+                                a(href="") Account
                             li
-                                a(href="#contact") Log-out
+                                a(href="" ng-click="logOut()") Log-out
         .row
             .sidebar_nav.two.columns
                 ul
