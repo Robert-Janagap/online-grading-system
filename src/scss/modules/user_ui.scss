@@ -50,19 +50,23 @@
 	}
 .content_view{
 	position: absolute;
-	left: 17%;
+	left: 16%;
 	margin-left: 0;
 	z-index: 1;
-	margin-top: 75px;
+	margin-top: 95px;
+	background-color: rgb(255, 255, 255);
+padding: 12px;
+box-shadow: 0px 12px 13px rgba(0, 0, 0, 0.3);
+border-radius: 4px;
 }
 .class_list{
+
 	table{
 		width: 60%;
 		margin-top: 15px;
 		th{		
 			padding-left: 13px;
 			color: #fff;
-			width: 50%;
 			font-size: 1.1rem;
 			border-bottom: 0;
 		}
@@ -106,6 +110,7 @@
 	list-style: 0;
 	margin: 0;
 	margin-left: 12px;
+
 	li{
 		margin: 0;
 		display: inline-block;
@@ -131,9 +136,8 @@
 .tab{
 	width: 90%;
 	background: rgb(255, 255, 255);
-	box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.3);
 	padding: 0px 25px;
-	border-top: 1px solid rgba(165, 165, 165, 0.3);
+	border: 1px solid rgba(165,165,165,0.3);
 	overflow-x: scroll;
 	border-radius: 8px;
 	table{
@@ -292,4 +296,60 @@ margin-right: 10px;
 	img{
 		vertical-align: middle;
 	}
+}
+.overlay{
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 5;
+	input{
+		font-size: 22px;
+	}
+	h3{
+		margin: 0px;
+		background-color: rgb(101, 101, 101);
+		color: rgb(255, 255, 255);
+		padding: 4px;
+		border-radius: 3px;
+		font-size: 18px;
+	}
+	form{
+		margin: 0;
+	}
+	.btn_green{
+		float: right;
+		background-color: #01cb14;
+		color: rgb(255, 255, 255);
+		border: 0px none;
+		font-size: 16px;
+	}
+	.create_class{
+		background-color: #fff;
+		box-shadow: 0px 9px 10px rgb(158, 158, 158);
+		padding: 10px 18px;
+		border-radius: 8px;
+		width: 50%;
+		margin: 0 auto;
+		margin-top: 75px;
+	}
+}
+.btn_hover:hover{
+	box-shadow: 5px 5px 3px rgba(134, 134, 134, 0.3);
+	transition: all 0.2s linear 0s;
+}
+.btn_cancel{
+	float: right;
+padding: 7px;
+text-decoration: underline;
+font-size: 14px;
+margin-right: 4px;
+}
+.pull-right{
+	float: right;
+}
+.client_bg{
+	background: #f8f8f8;
 }

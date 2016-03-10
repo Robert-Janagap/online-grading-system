@@ -12,8 +12,8 @@
               <li>
                 <input type="text"/>
               </li>
-              <li><a href="">Classes</a></li>
-              <li><a href="">Account</a></li>
+              <li><a href="" ng-click="studentClassList()">Classes</a></li>
+              <li><a href="" ng-click="studentAccount()">Account</a></li>
               <li><a href="" ng-click="logOut()">Log-out</a></li>
             </ul>
           </nav>
@@ -23,137 +23,140 @@
     <div class="row">
       <div class="sidebar_nav two columns">
         <ul>
-          <li><a href="">Active<img src="/img/icn_active.png" alt=""/></a></li>
+          <li><a href="" ng-click="studentClassList()">Active<img src="/img/icn_active.png" alt=""/></a></li>
           <li><a href="">Archive<img src="/img/icn_archive.png" alt=""/></a></li>
           <li><a href="">Settings<img src="/img/icn_quiz.png" alt=""/></a></li>
         </ul>
       </div>
       <div class="class_list ten columns content_view">
-        <h2 class="content_title">Your Classes</h2>
-        <table>
-          <thead>
-            <tr>
-              <th class="th_col1">Class </th>
-              <th class="th_col2">Teacher <img src="/img/icn_grade.png"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">Algebra</a></td>
-              <td> <a href="">
-                  <Tom>Kumar <a href="" class="student_grade">95%</a></Tom></a></td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">Science</a></td>
-              <td> <a href="">
-                  <Janie>Diean <a href="" class="student_grade">95%</a></Janie></a></td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">SOFTWEN</a></td>
-              <td> <a href="">
-                  <Billy>Cyrus <a href="" class="student_grade">95%</a></Billy></a></td>
-            </tr>
-            <tr>
-              <td><img src="/img/icn_book.png"> <a href="">ADDPROG</a></td>
-              <td> <a href="">
-                  <Hannah>Babbles <a href="" class="student_grade">95%</a></Hannah></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="content ten columns content_view">
-        <!--.find_class
-        h4 Welcome in our Online Grading System where you can do updating your grades, looking for Class, stay focus in your study, aware of your grades, and finally get motivated.
-        p Type your teacher class code
-        input(type="text")
-        a(href="") 
-            img(src="/img/icn_search.png", alt="")
-        -->
-        <!--student class view
-        h2.content_title Algebra
-        .tab.u-cf
-            h4 Class Summary
-            table
-                thead
-                    tr
-                        th Grading Period
-                        th Quiz 
-                            div ( 25% )
-                        th Attendance
-                            div ( 25% )
-                        th Laboratory
-                            div ( 25% )
-                        th Exam
-                            div ( 25% )
-                        th Grade
-                tbody
-                    tr
-                        td Prelim
-                        td 
-                            a(href="") 20%
-                        td 
-                            a(href="") 10%
-                        td 
-                            a(href="") 30%
-                        td 
-                            a(href="") 10%
-                        td 89%
-                    tr
-                        td Midterm
-                        td 
-                            a(href="") 20%
-                        td 
-                            a(href="") 10%
-                        td 
-                            a(href="") 30%
-                        td 
-                            a(href="") 10%
-                        td 85%
-                    tr
-                        td Final
-                        td 
-                            a(href="") 20%
-                        td 
-                            a(href="") 10%
-                        td 
-                            a(href="") 30%
-                        td 
-                            a(href="") 10%
-                        td 78%
-                    tr
-                        td Total Grade
-                        td 
-                        td 
-                        td 
-                        td 
-                        td 89%
-        ul.breadcrumb
-                li
-                    a(href="") Algebra
-                li.active
-                    a(href="") Prelim
-        h2.content_title Laboratory
-        .tab
-            h4 Prelim Report
-            .tab_top_content
-                span.total_days Total: <span>120</span>
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                            .activity_name Lab #1
-                        th 1-2-13 Thuesday
-                            .activity_name Lab #2
-                        th 1-2-14 Wednesday
-                            .activity_name Lab #3
-                tbody
-                    tr
-                        td Wizardz ( 24 )
-                        td 15/15
-                        td 17/20
-                        td 15/15
-        -->
+        <div ng-show="studentClasses" class="user_view">
+          <h2 class="content_title">Your Classes</h2>
+          <table>
+            <thead>
+              <tr>
+                <th class="th_col1">Class </th>
+                <th class="th_col2">Teacher <img src="/img/icn_grade.png"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Algebra</a></td>
+                <td> <a href="">
+                    <Tom>Kumar <a href="" class="student_grade">95%</a></Tom></a></td>
+              </tr>
+              <tr>
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Science</a></td>
+                <td> <a href="">
+                    <Janie>Diean <a href="" class="student_grade">95%</a></Janie></a></td>
+              </tr>
+              <tr>
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">SOFTWEN</a></td>
+                <td> <a href="">
+                    <Billy>Cyrus <a href="" class="student_grade">95%</a></Billy></a></td>
+              </tr>
+              <tr>
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">ADDPROG</a></td>
+                <td> <a href="">
+                    <Hannah>Babbles <a href="" class="student_grade">95%</a></Hannah></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-show="classSummary" class="user_view">
+          <h2 class="content_title">Algebra</h2>
+          <div class="tab">
+            <h4>Class Summary</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Grading Period</th>
+                  <th>Quiz 
+                    <div>( 25% )</div>
+                  </th>
+                  <th>Attendance
+                    <div>( 25% )</div>
+                  </th>
+                  <th>Laboratory
+                    <div>( 25% )</div>
+                  </th>
+                  <th>Examination
+                    <div>( 25% )</div>
+                  </th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prelim</td>
+                  <td> <a href="">20%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td>89%</td>
+                </tr>
+                <tr>
+                  <td>Midterm</td>
+                  <td> <a href="">20%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td>85%</td>
+                </tr>
+                <tr>
+                  <td>Final</td>
+                  <td> <a href="">20%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
+                  <td> <a href="">10%</a></td>
+                  <td>78%</td>
+                </tr>
+                <tr>
+                  <td>Total Grade</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td>89%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="gradingReport" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="viewSummary()">Algebra</a></li>
+            <li class="active"><a href="">Prelim</a></li>
+          </ul>
+          <h2 class="content_title">Laboratory</h2>
+          <div class="tab">
+            <h4>Prelim Report</h4>
+            <div class="tab_top_content"><span class="total_days">Total: <span>120</span></span></div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday
+                    <div class="activity_name">Lab #1</div>
+                  </th>
+                  <th>1-2-13 Thuesday
+                    <div class="activity_name">Lab #2</div>
+                  </th>
+                  <th>1-2-14 Wednesday
+                    <div class="activity_name">Lab #3</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz ( 24 )</td>
+                  <td>15/15</td>
+                  <td>17/20</td>
+                  <td>15/15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </body>

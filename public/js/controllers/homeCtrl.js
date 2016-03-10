@@ -29,7 +29,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 				$http.post('/login', user).success(function(data){
 					$rootScope.currentUser = data;
 					$routeParams.page = data.username;
-					console.log($routeParams.page);
+					// console.log($routeParams.page);
 					userRoutes = ["administrator","teacher","student"];
 						for (var i = userRoutes.length - 1; i >= 0; i--) {
 							
@@ -39,7 +39,6 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 						
 						}
 				});
-
 				// $http.post('/login', user).success(function(data){
 				// 	$rootScope.currentUser = data;
 				// 	console.log(data);

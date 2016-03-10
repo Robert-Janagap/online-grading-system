@@ -12,16 +12,16 @@ html(lang="en")
                             li
                                 input(type="text")
                             li
-                                a(href="") Classes
+                                a(href="" ng-click="studentClassList()") Classes
                             li
-                                a(href="") Account
+                                a(href="" ng-click="studentAccount()") Account
                             li
                                 a(href="" ng-click="logOut()") Log-out
         .row
             .sidebar_nav.two.columns
                 ul
                     li
-                        a(href="") Active
+                        a(href="" ng-click="studentClassList()") Active
                             img(src="/img/icn_active.png", alt="")
                     li
                         a(href="" ) Archive
@@ -30,43 +30,37 @@ html(lang="en")
                         a(href="" ) Settings
                             img(src="/img/icn_quiz.png", alt="")
             .class_list.ten.columns.content_view
-                h2.content_title Your Classes
-                table
-                    thead
-                        tr
-                            th.th_col1 Class 
-                            th.th_col2 Teacher <img src="/img/icn_grade.png">
-                    tbody
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">Algebra</a>
-                            td 
-                                a(href="")
-                                    Tom Kumar <a href="" class="student_grade">95%</a>
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">Science</a>
-                            td 
-                                a(href="")
-                                    Janie Diean <a href="" class="student_grade">95%</a>
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a>
-                            td 
-                                a(href="")
-                                    Billy Cyrus <a href="" class="student_grade">95%</a>
-                        tr
-                            td <img src="/img/icn_book.png"> <a href="">ADDPROG</a>
-                            td 
-                                a(href="")
-                                    Hannah Babbles <a href="" class="student_grade">95%</a>
-            .content.ten.columns.content_view
-                //.find_class
-                    h4 Welcome in our Online Grading System where you can do updating your grades, looking for Class, stay focus in your study, aware of your grades, and finally get motivated.
-                    p Type your teacher class code
-                    input(type="text")
-                    a(href="") 
-                        img(src="/img/icn_search.png", alt="")
-                //student class view
+                .user_view(ng-show="studentClasses")
+                    h2.content_title Your Classes
+                    table
+                        thead
+                            tr
+                                th.th_col1 Class 
+                                th.th_col2 Teacher <img src="/img/icn_grade.png">
+                        tbody
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Algebra</a>
+                                td 
+                                    a(href="")
+                                        Tom Kumar <a href="" class="student_grade">95%</a>
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Science</a>
+                                td 
+                                    a(href="")
+                                        Janie Diean <a href="" class="student_grade">95%</a>
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">SOFTWEN</a>
+                                td 
+                                    a(href="")
+                                        Billy Cyrus <a href="" class="student_grade">95%</a>
+                            tr
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">ADDPROG</a>
+                                td 
+                                    a(href="")
+                                        Hannah Babbles <a href="" class="student_grade">95%</a>
+                .user_view(ng-show="classSummary")
                     h2.content_title Algebra
-                    .tab.u-cf
+                    .tab
                         h4 Class Summary
                         table
                             thead
@@ -78,7 +72,7 @@ html(lang="en")
                                         div ( 25% )
                                     th Laboratory
                                         div ( 25% )
-                                    th Exam
+                                    th Examination
                                         div ( 25% )
                                     th Grade
                             tbody
@@ -89,7 +83,7 @@ html(lang="en")
                                     td 
                                         a(href="") 10%
                                     td 
-                                        a(href="") 30%
+                                        a(href="" ng-click="showGradingReport()") 30%
                                     td 
                                         a(href="") 10%
                                     td 89%
@@ -100,7 +94,7 @@ html(lang="en")
                                     td 
                                         a(href="") 10%
                                     td 
-                                        a(href="") 30%
+                                        a(href="" ng-click="showGradingReport()") 30%
                                     td 
                                         a(href="") 10%
                                     td 85%
@@ -111,9 +105,9 @@ html(lang="en")
                                     td 
                                         a(href="") 10%
                                     td 
-                                        a(href="") 30%
+                                        a(href="" ng-click="showGradingReport()") 30%
                                     td 
-                                        a(href="") 10%
+                                        a(href="" ) 10%
                                     td 78%
                                 tr
                                     td Total Grade
@@ -122,9 +116,10 @@ html(lang="en")
                                     td 
                                     td 
                                     td 89%
+                .user_view(ng-show="gradingReport")
                     ul.breadcrumb
                             li
-                                a(href="") Algebra
+                                a(href="" ng-click="viewSummary()") Algebra
                             li.active
                                 a(href="") Prelim
                     h2.content_title Laboratory
@@ -148,3 +143,4 @@ html(lang="en")
                                     td 15/15
                                     td 17/20
                                     td 15/15
+                

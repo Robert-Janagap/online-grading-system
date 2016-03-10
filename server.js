@@ -15,6 +15,8 @@ var express =require( 'express' ),
 mongoose.connect('mongodb://127.0.0.1/gradingSystem');
 //database
 var users = mongoose.model('users', require('./app/models/dbUser.js'));
+var dbTeacher = mongoose.model('dbTeacher', require('./app/models/dbTeacher.js'));
+var dbStudents = mongoose.model('dbStudents', require('./app/models/dbStudents.js'));
 
 //use middleware
 app.use( express.static( path.join( __dirname,'/public' ) ) );
@@ -68,7 +70,12 @@ app.use( '/teacher',teacher );
 app.use( '/student',student );
 
 
-
+//for development
+app.get('/dbTeacher', function(req, res){
+    dbTeacher.find({}, function(err, data){
+        console.log(data)
+    });
+});
 
 //server listening
 http.createServer( app ).listen( port,function() {

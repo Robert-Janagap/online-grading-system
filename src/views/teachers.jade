@@ -2,7 +2,7 @@
 html(lang="en")
     head
         title Teacher Name
-    body
+    body.client_bg
         header.blue_header.u-cf
             .container
                 .navigation.u-cf(ng-controller="navCtrl")
@@ -10,121 +10,151 @@ html(lang="en")
                     nav 
                         ul
                             li
-                                a(href="") Classes
+                                a(href="" ng-click="goBackToClassList()") Classes
                             li
-                                a(href="") Account
+                                a(href="" ng-click="goToAccountSettings()") Account
                             li
                                 a(href="" ng-click="logOut()") Log-out
         .row
             .sidebar_nav.two.columns
                 ul
                     li
-                        a(href="") Attendance
+                        a(href="" ng-click="viewAttendance()") Attendance
                             img(src="/img/icn_att.png", alt="")
                     li
-                        a(href="" ) Students
+                        a(href="" ng-click="viewStudents()") Students
                             img(src="/img/icn_students.png", alt="")
                     li
-                        a(href="" ) Quiz
+                        a(href="" ng-click="viewQuiz()") Quiz
                             img(src="/img/icn_quiz.png", alt="")
                     li
-                        a(href="" ) Assignments
+                        a(href="" ng-click="viewAssignments()") Assignments
                             img(src="/img/icn_assign.png", alt="")
                     li
-                        a(href="" ) Laboratory
+                        a(href="" ng-click="viewLab()") Laboratory
                             img(src="/img/icn_lab.png", alt="")
                     li
-                        a(href="" ) Exam
+                        a(href="" ng-click="viewExam()") Exam
                             img(src="/img/icn_exam.png", alt="")
                     li
-                        a(href="" ) Settings
+                        a(href="" ng-click="viewSettings()") Settings
                             img(src="/img/icn_settings.png", alt="")
-            //Class list view
-                .class_list.ten.columns.content_view
+            .overlay(ng-show="openOverlay")
+                .create_class
+                    h3 Create New Class
+                    form
+                        .row(ng-show="creatingClass")
+                            h4.title_border Class Info
+                            .input_group.row
+                                label(for="Class name").three.columns Class Name
+                                input(type="text" ng-model="newClass.class_name").five.columns  
+                                span.four.columns Ex. Algebra 3-A
+                            .input_group.row
+                                label(for="School Year").three.columns School Year
+                                .five.columns
+                                    select(ng-model="newClass.year") 
+                                        option(value="2016-2017" selected) 2016-2017 
+                            button(ng-click="openGradingScale()").btn_green.btn_hover Next
+                            a(href="" ng-click="closeCreateClass()").btn_cancel cancel
+                        .row.setGradingScale(ng-show="gradingScale")
+                            h4.title_border Grading Scale
+                            .row
+                                .input_group.four.columns
+                                    label(for="attendance") Attendance
+                                    input(type="number" min="1" max="100" ng-model="newClass.attendance")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Quiz
+                                    input(type="number" min="1" max="100" ng-model="newClass.quiz")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Assignments") Assignments
+                                    input(type="number" min="1" max="100" ng-model="newClass.assignments")
+                                    span  %
+                            .row
+                                .input_group.four.columns
+                                    label(for="Quiz") Laboratory
+                                    input(type="number" min="1" max="100" ng-model="newClass.lab")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Exam
+                                    input(type="number" min="1" max="100" ng-model="newClass.exam")
+                                    span  %
+                            button(ng-click="createNewClass(newClass)").pull-right.u-cf Submit
+                            a(href="" ng-click="closeGradingScale()").btn_cancel back
+            .content.ten.columns.content_view
+                .class_list.user_view(ng-show="classList")
                     h2.content_title Your Classes
-                    .btn_2 Create New Class
+                    .btn_2(ng-click="openCreateClass()") Create New Class
                     table
                         thead
                             tr
                                 th.th_col1 Class <img src="/img/icn_student_count.png">
                                 th.th_col2 Class Code
                         tbody
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a>
-                                td 2-3-16-aa
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a>
-                                td 2-4-12ab
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a>
-                                td 3-2-19ac2 
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a>
-                                td 2-2-13aD 
-            .content.ten.columns.content_view
-                //class view   
-                ul.breadcrumb
-                    li
-                        a(href="") Algebra
-                h2.content_title Algebra
-                ul.content_view_tabs
-                    li.active 1
-                    li 2
-                    li 3
-                    li 4
-                .tab.u-cf
-                    h4 Grade
-                    table
-                        thead
-                            tr
-                                th Name
-                                th Quiz
-                                th Attendance
-                                th Laboratory
-                                th Exam
-                                th Grade
-                        tbody
-                            tr
-                                td Wizardz
-                                td 3%
-                                td 20%
-                                td 35%
-                                td 32%
-                                td 44%
-                            tr
-                                td Xfol
-                                td 3%
-                                td 20%
-                                td 35%
-                                td 32%
-                                td 44%
-                            tr
-                                td Nitsuj
-                                td 3%
-                                td 20%
-                                td 35%
-                                td 32%
-                                td 44%
-                            tr
-                                td Loda
-                                td 3%
-                                td 20%
-                                td 35%
-                                td 32%
-                                td 44%
-                //Attendance View 
+                            tr(ng-repeat="teacherClass in classList")
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a> <a href="" class="student_count">2</a>
+                                td {{teacherClass.class_id}}
+                .user_view(ng-show="teacherClass")
+                    ul.breadcrumb
+                        li.active
+                            a(href="") {{classInfo.class_name}}
+                    h2.content_title {{classInfo.class_name}}
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab.u-cf
+                        h4 Grade
+                        table
+                            thead
+                                tr
+                                    th Name
+                                    th Quiz
+                                    th Attendance
+                                    th Laboratory
+                                    th Exam
+                                    th Grade
+                            tbody
+                                tr
+                                    td Wizardz
+                                    td 3%
+                                    td 20%
+                                    td 35%
+                                    td 32%
+                                    td 44%
+                                tr
+                                    td Xfol
+                                    td 3%
+                                    td 20%
+                                    td 35%
+                                    td 32%
+                                    td 44%
+                                tr
+                                    td Nitsuj
+                                    td 3%
+                                    td 20%
+                                    td 35%
+                                    td 32%
+                                    td 44%
+                                tr
+                                    td Loda
+                                    td 3%
+                                    td 20%
+                                    td 35%
+                                    td 32%
+                                    td 44%
+                .user_view(ng-show="showAttendance")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Attendance
-
                     h2.content_title Attendance
                     ul.content_view_tabs
-                        li.active 1
-                        li 2
-                        li 3
-                        li 4
+                        li.active Prelim
+                        li Midterm
+                        li Final
                     .tab
                         h4 March 8 2016
                         .tab_top_content
@@ -208,16 +238,16 @@ html(lang="en")
                                     td 1
                                     td 1
                                     td 15
-                //student list view
+                .user_view(ng-show="studentsList")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Students
 
                     h2.content_title Student List
                     .tab.student_tab
-                        h4 Algebra / 2-3-16aa
+                        h4 {{classInfo.class_name}}
                         table.margin_top
                             thead
                                 tr
@@ -252,19 +282,18 @@ html(lang="en")
                                     td 
                                          a(href="")
                                             img(src="/img/png_settings.png", alt="")
-                //quiz, assignment, laboratory view
+                .user_view(ng-show="studentQuiz")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Quiz
 
                     h2.content_title Quiz
                     ul.content_view_tabs
-                        li 1
-                        li 2
-                        li.active 3
-                        li 4
+                        li.active Prelim
+                        li Midterm
+                        li Final
                     .tab
                         h4 
                         .tab_top_content
@@ -301,17 +330,17 @@ html(lang="en")
                                     td 10/10
                                     td 17/20
                                     td 10/15
+                .user_view(ng-show="studentAssignments")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Assignments
                     h2.content_title Assignments
                     ul.content_view_tabs
-                        li 1
-                        li.active 2
-                        li 3
-                        li 4
+                        li.active Prelim
+                        li Midterm
+                        li Final
                     .tab
                         h4
                         .tab_top_content
@@ -348,17 +377,17 @@ html(lang="en")
                                     td 10/10
                                     td 17/20
                                     td 10/15
+                .user_view(ng-show="studentsLab")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Laboratory
                     h2.content_title Laboratory
                     ul.content_view_tabs
-                        li 1
-                        li.active 2
-                        li 3
-                        li 4
+                        li.active Prelim
+                        li Midterm
+                        li Final
                     .tab
                         h4
                         .tab_top_content
@@ -395,17 +424,17 @@ html(lang="en")
                                     td 15/15
                                     td 17/20
                                     td 15/15
+                .user_view(ng-show="studentExam")
                     ul.breadcrumb
                         li
-                            a(href="") Algebra
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                         li.active
                             a(href="") Exam
                     h2.content_title Exam
                     ul.content_view_tabs
-                        li 1
-                        li.active 2
-                        li 3
-                        li 4
+                        li.active Prelim
+                        li Midterm
+                        li Final
                     .tab
                         h4
                         .tab_top_content
@@ -428,11 +457,11 @@ html(lang="en")
                                 tr
                                     td Loda
                                     td 15/15
-                //settings view
+                .user_view(ng-show="teacherSettings")
                     .settings 
                         ul.breadcrumb
                             li
-                                a(href="") Algebra
+                                a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
                             li.active
                                 a(href="") Settings
                         h2.content_title Settings
@@ -472,7 +501,7 @@ html(lang="en")
                                     input(type="number" min="1" max="100")
                                     span  %
                             button.u-cf Submit
-                //account
+                .user_view(ng-show="accountSettings")
                     .accout_settings
                         h2.content_title Accout Settings
                         h4.title_border Edit Account

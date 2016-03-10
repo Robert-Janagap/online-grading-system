@@ -3,14 +3,14 @@
   <head>
     <title>Teacher Name</title>
   </head>
-  <body>
+  <body class="client_bg">
     <header class="blue_header u-cf">
       <div class="container">
         <div ng-controller="navCtrl" class="navigation u-cf"><a href="#/" class="logo">Online Grading System</a>
           <nav> 
             <ul>
-              <li><a href="">Classes</a></li>
-              <li><a href="">Account</a></li>
+              <li><a href="" ng-click="goBackToClassList()">Classes</a></li>
+              <li><a href="" ng-click="goToAccountSettings()">Account</a></li>
               <li><a href="" ng-click="logOut()">Log-out</a></li>
             </ul>
           </nav>
@@ -20,496 +20,591 @@
     <div class="row">
       <div class="sidebar_nav two columns">
         <ul>
-          <li><a href="">Attendance<img src="/img/icn_att.png" alt=""/></a></li>
-          <li><a href="">Students<img src="/img/icn_students.png" alt=""/></a></li>
-          <li><a href="">Quiz<img src="/img/icn_quiz.png" alt=""/></a></li>
-          <li><a href="">Assignments<img src="/img/icn_assign.png" alt=""/></a></li>
-          <li><a href="">Laboratory<img src="/img/icn_lab.png" alt=""/></a></li>
-          <li><a href="">Exam<img src="/img/icn_exam.png" alt=""/></a></li>
-          <li><a href="">Settings<img src="/img/icn_settings.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewAttendance()">Attendance<img src="/img/icn_att.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewStudents()">Students<img src="/img/icn_students.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewQuiz()">Quiz<img src="/img/icn_quiz.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewAssignments()">Assignments<img src="/img/icn_assign.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewLab()">Laboratory<img src="/img/icn_lab.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewExam()">Exam<img src="/img/icn_exam.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewSettings()">Settings<img src="/img/icn_settings.png" alt=""/></a></li>
         </ul>
       </div>
-      <!--Class list view
-      .class_list.ten.columns.content_view
-          h2.content_title Your Classes
-          .btn_2 Create New Class
-          table
-              thead
-                  tr
-                      th.th_col1 Class <img src="/img/icn_student_count.png">
-                      th.th_col2 Class Code
-              tbody
-                  tr
-                      td <img src="/img/icn_book.png"> <a href="">Algebra</a> <a href="" class="student_count">2</a>
-                      td 2-3-16-aa
-                  tr
-                      td <img src="/img/icn_book.png"> <a href="">Science</a> <a href="" class="student_count">3</a>
-                      td 2-4-12ab
-                  tr
-                      td <img src="/img/icn_book.png"> <a href="">SOFTWEN</a> <a href="" class="student_count">5</a>
-                      td 3-2-19ac2 
-                  tr
-                      td <img src="/img/icn_book.png"> <a href="">ADDPROG</a> <a href="" class="student_count">10</a>
-                      td 2-2-13aD 
-      -->
+      <div ng-show="openOverlay" class="overlay">
+        <div class="create_class">
+          <h3>Create New Class</h3>
+          <form>
+            <div ng-show="creatingClass" class="row">
+              <h4 class="title_border">Class Info</h4>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Class Name</label>
+                <input type="text" ng-model="newClass.class_name" class="five columns"/><span class="four columns">Ex. Algebra 3-A</span>
+              </div>
+              <div class="input_group row">
+                <label for="School Year" class="three columns">School Year</label>
+                <div class="five columns">
+                  <select ng-model="newClass.year"> 
+                    <option value="2016-2017" selected="selected">2016-2017 </option>
+                  </select>
+                </div>
+              </div>
+              <button ng-click="openGradingScale()" class="btn_green btn_hover">Next</button><a href="" ng-click="closeCreateClass()" class="btn_cancel">cancel</a>
+            </div>
+            <div ng-show="gradingScale" class="row setGradingScale">
+              <h4 class="title_border">Grading Scale</h4>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="attendance">Attendance</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.attendance"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Quiz</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.quiz"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Assignments">Assignments</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.assignments"/><span> %</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="Quiz">Laboratory</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.lab"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Exam</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.exam"/><span> %</span>
+                </div>
+              </div>
+              <button ng-click="createNewClass(newClass)" class="pull-right u-cf">Submit</button><a href="" ng-click="closeGradingScale()" class="btn_cancel">back</a>
+            </div>
+          </form>
+        </div>
+      </div>
       <div class="content ten columns content_view">
-        <!--class view   -->
-        <ul class="breadcrumb">
-          <li><a href="">Algebra</a></li>
-        </ul>
-        <h2 class="content_title">Algebra</h2>
-        <ul class="content_view_tabs">
-          <li class="active">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
-        <div class="tab u-cf">
-          <h4>Grade</h4>
+        <div ng-show="classList" class="class_list user_view">
+          <h2 class="content_title">Your Classes</h2>
+          <div ng-click="openCreateClass()" class="btn_2">Create New Class</div>
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Quiz</th>
-                <th>Attendance</th>
-                <th>Laboratory</th>
-                <th>Exam</th>
-                <th>Grade</th>
+                <th class="th_col1">Class <img src="/img/icn_student_count.png"></th>
+                <th class="th_col2">Class Code</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Wizardz</td>
-                <td>3%</td>
-                <td>20%</td>
-                <td>35%</td>
-                <td>32%</td>
-                <td>44%</td>
-              </tr>
-              <tr>
-                <td>Xfol</td>
-                <td>3%</td>
-                <td>20%</td>
-                <td>35%</td>
-                <td>32%</td>
-                <td>44%</td>
-              </tr>
-              <tr>
-                <td>Nitsuj</td>
-                <td>3%</td>
-                <td>20%</td>
-                <td>35%</td>
-                <td>32%</td>
-                <td>44%</td>
-              </tr>
-              <tr>
-                <td>Loda</td>
-                <td>3%</td>
-                <td>20%</td>
-                <td>35%</td>
-                <td>32%</td>
-                <td>44%</td>
+              <tr ng-repeat="teacherClass in classList">
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a> <a href="" class="student_count">2</a></td>
+                <td>{{teacherClass.class_id}}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!--Attendance View 
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Attendance
-        
-        h2.content_title Attendance
-        ul.content_view_tabs
-            li.active 1
-            li 2
-            li 3
-            li 4
-        .tab
-            h4 March 8 2016
-            .tab_top_content
-                .btn_2 Add Column
-                span.total_days Total: <span>5</span>
-                .color_guide
-                    span
-                        span.clr_black 
-                        | Good
-                    span
-                        span.clr_yellow 
-                        | Warning
-                    span
-                        span.clr_drop 
-                        | Drop
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                        th 1-2-13 Thuesday
-                        th 1-2-14 Wednesday
-                        th 1-2-15 Thursday
-                        th 1-2-16 Friday
-                        th 1-2-16 Friday
-                        th 1-2-16 Friday
-                        th 1-2-16 Friday
-                        th 1-2-16 Friday
-                        th 1-2-16 Friday
-                        th Total
-                tbody
-                    tr
-                        td Wizardz ( 3 )
-                        td 0
-                        td 1
-                        td 1
-                        td 0
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 15
-                    tr
-                        td.clr_drop Xfol ( 4 )
-                        td 0
-                        td 1
-                        td 1
-                        td 0
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 15
-                    tr
-                        td.clr_warning Nitsuj ( 5 )
-                        td 0
-                        td 1
-                        td 1
-                        td 0
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 15
-                    tr
-                        td Loda ( 6 )
-                        td 0
-                        td 1
-                        td 1
-                        td 0
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 1
-                        td 15
-        -->
-        <!--student list view
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Students
-        
-        h2.content_title Student List
-        .tab.student_tab
-            h4 Algebra / 2-3-16aa
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th ID
-                        th 
-                            a(href="")
-                                img(src="/img/png_settings.png", alt="")
-                tbody
-                    tr
-                        td Wizardz
-                        td 12321
-                        td 
-                            a(href="")
-                                
-                                img(src="/img/png_settings.png", alt="")
-                    tr
-                        td Xfol
-                        td 13123
-                        td 
-                             a(href="")
-                                img(src="/img/png_settings.png", alt="")
-                    tr
-                        td Nitsuj
-                        td 123213
-                        td 
-                             a(href="")
-                                img(src="/img/png_settings.png", alt="")
-                    tr
-                        td Loda
-                        td 123213
-                        td 
-                             a(href="")
-                                img(src="/img/png_settings.png", alt="")
-        -->
-        <!--quiz, assignment, laboratory view
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Quiz
-        
-        h2.content_title Quiz
-        ul.content_view_tabs
-            li 1
-            li 2
-            li.active 3
-            li 4
-        .tab
-            h4 
-            .tab_top_content
-                .btn_2 Add Quiz
-                span.total_days Total: <span>60</span>
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                            .activity_name activity #1
-                        th 1-2-13 Thuesday
-                            .activity_name activity #1
-                        th 1-2-14 Wednesday
-                            .activity_name activity #1
-                tbody
-                    tr
-                        td Wizardz ( 24 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Xfol ( 27 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Nitsuj ( 25 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Loda ( 29 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Assignments
-        h2.content_title Assignments
-        ul.content_view_tabs
-            li 1
-            li.active 2
-            li 3
-            li 4
-        .tab
-            h4
-            .tab_top_content
-                .btn_2 Add Assignments
-                span.total_days Total: <span>90</span>
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                            .activity_name activity #1
-                        th 1-2-13 Thuesday
-                            .activity_name activity #1
-                        th 1-2-14 Wednesday
-                            .activity_name activity #1
-                tbody
-                    tr
-                        td Wizardz ( 24 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Xfol ( 27 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Nitsuj ( 25 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-                    tr
-                        td Loda ( 29 )
-                        td 10/10
-                        td 17/20
-                        td 10/15
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Laboratory
-        h2.content_title Laboratory
-        ul.content_view_tabs
-            li 1
-            li.active 2
-            li 3
-            li 4
-        .tab
-            h4
-            .tab_top_content
-                .btn_2 Add Laboratory
-                span.total_days Total: <span>120</span>
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                            .activity_name activity #1
-                        th 1-2-13 Thuesday
-                            .activity_name activity #1
-                        th 1-2-14 Wednesday
-                            .activity_name activity #1
-                tbody
-                    tr
-                        td Wizardz ( 24 )
-                        td 15/15
-                        td 17/20
-                        td 15/15
-                    tr
-                        td Xfol ( 27 )
-                        td 15/15
-                        td 17/20
-                        td 15/15
-                    tr
-                        td Nitsuj ( 25 )
-                        td 15/15
-                        td 17/20
-                        td 15/15
-                    tr
-                        td Loda ( 29 )
-                        td 15/15
-                        td 17/20
-                        td 15/15
-        ul.breadcrumb
-            li
-                a(href="") Algebra
-            li.active
-                a(href="") Exam
-        h2.content_title Exam
-        ul.content_view_tabs
-            li 1
-            li.active 2
-            li 3
-            li 4
-        .tab
-            h4
-            .tab_top_content
-                .btn_2 Add Exam
-            table.margin_top
-                thead
-                    tr
-                        th Name
-                        th 1-2-12 Monday
-                tbody
-                    tr
-                        td Wizardz
-                        td 15/15
-                    tr
-                        td Xfol
-                        td 15/15
-                    tr
-                        td Nitsuj
-                        td 15/15
-                    tr
-                        td Loda
-                        td 15/15
-        -->
-        <!--settings view
-        .settings 
-            ul.breadcrumb
-                li
-                    a(href="") Algebra
-                li.active
-                    a(href="") Settings
-            h2.content_title Settings
-            h4.title_border Class Settings
-            form.row
-                .input_group.row
-                    label(for="Class name").four.columns Class Name
-                    input(type="text").four.columns  
-                    span.four.columns Ex. Algebra 3-A
-                .input_group.row
-                    label(for="School Year").four.columns School Year
-                    select.four.columns 
-                        option(value="") 2016-2017 
-                    span.four.columns The school year   
-            h4 Grade Settings 
-            form.row.u-cf
-                .row
-                    .input_group.four.columns
-                        label(for="attendance") Attendance
-                        input(type="number" min="1" max="100")
-                        span  %
-                    .input_group.four.columns
-                        label(for="Quiz") Quiz
-                        input(type="number" min="1" max="100")
-                        span  %
-                    .input_group.four.columns
-                        label(for="Assignments") Assignments
-                        input(type="number" min="1" max="100")
-                        span  %
-                .row
-                    .input_group.four.columns
-                        label(for="Quiz") Laboratory
-                        input(type="number" min="1" max="100")
-                        span  %
-                    .input_group.four.columns
-                        label(for="Quiz") Exam
-                        input(type="number" min="1" max="100")
-                        span  %
-                button.u-cf Submit
-        -->
-        <!--account
-        .accout_settings
-            h2.content_title Accout Settings
-            h4.title_border Edit Account
-            form
-                .input_group.row
-                    label(for="Username").three.columns Username
-                    input(type="text").four.columns  
-                    span.four.columns Choose Username. Letters and Number only
-                .input_group.row
-                    label(for="Your name").three.columns Your Name
-                    input(type="text").four.columns  
-                    span.four.columns Enter Your Full Name
-                .input_group.row
-                    label(for="Class name").three.columns Email
-                    input(type="email").four.columns  
-                    span.four.columns Enter Your Email Address
-                .input_group.row
-                    label(for="Class name").three.columns Phone
-                    input(type="tel").four.columns  
-                    span.four.columns Enter Your Phone Number
-            h4.title_border New Password
-            form
-                .input_group.row
-                    label(for="Username").three.columns New Password
-                    input(type="password").four.columns  
-                    span.four.columns Enter a new password or leave blank to keep the same
-                .input_group.row
-                    label(for="Username").three.columns Confirm New Password
-                    input(type="password").four.columns  
-                    span.four.columns Enter above password or leave blank to keep the same
-                button Submit
-        -->
+        <div ng-show="teacherClass" class="user_view">
+          <ul class="breadcrumb">
+            <li class="active"><a href="">{{classInfo.class_name}}</a></li>
+          </ul>
+          <h2 class="content_title">{{classInfo.class_name}}</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab u-cf">
+            <h4>Grade</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Quiz</th>
+                  <th>Attendance</th>
+                  <th>Laboratory</th>
+                  <th>Exam</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz</td>
+                  <td>3%</td>
+                  <td>20%</td>
+                  <td>35%</td>
+                  <td>32%</td>
+                  <td>44%</td>
+                </tr>
+                <tr>
+                  <td>Xfol</td>
+                  <td>3%</td>
+                  <td>20%</td>
+                  <td>35%</td>
+                  <td>32%</td>
+                  <td>44%</td>
+                </tr>
+                <tr>
+                  <td>Nitsuj</td>
+                  <td>3%</td>
+                  <td>20%</td>
+                  <td>35%</td>
+                  <td>32%</td>
+                  <td>44%</td>
+                </tr>
+                <tr>
+                  <td>Loda</td>
+                  <td>3%</td>
+                  <td>20%</td>
+                  <td>35%</td>
+                  <td>32%</td>
+                  <td>44%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="showAttendance" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Attendance</a></li>
+          </ul>
+          <h2 class="content_title">Attendance</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4>March 8 2016</h4>
+            <div class="tab_top_content">
+              <div class="btn_2">Add Column</div><span class="total_days">Total: <span>5</span></span>
+              <div class="color_guide"><span><span class="clr_black"> </span>Good</span><span><span class="clr_yellow"> </span>Warning</span><span><span class="clr_drop"> </span>Drop</span></div>
+            </div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday</th>
+                  <th>1-2-13 Thuesday</th>
+                  <th>1-2-14 Wednesday</th>
+                  <th>1-2-15 Thursday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>1-2-16 Friday</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz ( 3 )</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td class="clr_drop">Xfol ( 4 )</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td class="clr_warning">Nitsuj ( 5 )</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td>Loda ( 6 )</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="studentsList" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Students</a></li>
+          </ul>
+          <h2 class="content_title">Student List</h2>
+          <div class="tab student_tab">
+            <h4>{{classInfo.class_name}}</h4>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>ID</th>
+                  <th> <a href=""><img src="/img/png_settings.png" alt=""/></a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz</td>
+                  <td>12321</td>
+                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
+                </tr>
+                <tr>
+                  <td>Xfol</td>
+                  <td>13123</td>
+                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
+                </tr>
+                <tr>
+                  <td>Nitsuj</td>
+                  <td>123213</td>
+                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
+                </tr>
+                <tr>
+                  <td>Loda</td>
+                  <td>123213</td>
+                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="studentQuiz" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Quiz</a></li>
+          </ul>
+          <h2 class="content_title">Quiz</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4> </h4>
+            <div class="tab_top_content">
+              <div class="btn_2">Add Quiz</div><span class="total_days">Total: <span>60</span></span>
+            </div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-13 Thuesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-14 Wednesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz ( 24 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Xfol ( 27 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Nitsuj ( 25 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Loda ( 29 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="studentAssignments" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Assignments</a></li>
+          </ul>
+          <h2 class="content_title">Assignments</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div class="btn_2">Add Assignments</div><span class="total_days">Total: <span>90</span></span>
+            </div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-13 Thuesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-14 Wednesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz ( 24 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Xfol ( 27 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Nitsuj ( 25 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+                <tr>
+                  <td>Loda ( 29 )</td>
+                  <td>10/10</td>
+                  <td>17/20</td>
+                  <td>10/15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="studentsLab" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Laboratory</a></li>
+          </ul>
+          <h2 class="content_title">Laboratory</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div class="btn_2">Add Laboratory</div><span class="total_days">Total: <span>120</span></span>
+            </div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-13 Thuesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                  <th>1-2-14 Wednesday
+                    <div class="activity_name">activity #1</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz ( 24 )</td>
+                  <td>15/15</td>
+                  <td>17/20</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Xfol ( 27 )</td>
+                  <td>15/15</td>
+                  <td>17/20</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Nitsuj ( 25 )</td>
+                  <td>15/15</td>
+                  <td>17/20</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Loda ( 29 )</td>
+                  <td>15/15</td>
+                  <td>17/20</td>
+                  <td>15/15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="studentExam" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Exam</a></li>
+          </ul>
+          <h2 class="content_title">Exam</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div class="btn_2">Add Exam</div>
+            </div>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>1-2-12 Monday</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wizardz</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Xfol</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Nitsuj</td>
+                  <td>15/15</td>
+                </tr>
+                <tr>
+                  <td>Loda</td>
+                  <td>15/15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="teacherSettings" class="user_view">
+          <div class="settings"> 
+            <ul class="breadcrumb">
+              <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+              <li class="active"><a href="">Settings</a></li>
+            </ul>
+            <h2 class="content_title">Settings</h2>
+            <h4 class="title_border">Class Settings</h4>
+            <form class="row">
+              <div class="input_group row">
+                <label for="Class name" class="four columns">Class Name</label>
+                <input type="text" class="four columns"/><span class="four columns">Ex. Algebra 3-A</span>
+              </div>
+              <div class="input_group row">
+                <label for="School Year" class="four columns">School Year</label>
+                <select class="four columns"> 
+                  <option value="">2016-2017 </option>
+                </select><span class="four columns">The school year   </span>
+              </div>
+            </form>
+            <h4>Grade Settings </h4>
+            <form class="row u-cf">
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="attendance">Attendance</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Quiz</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Assignments">Assignments</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="Quiz">Laboratory</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Exam</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+              </div>
+              <button class="u-cf">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div ng-show="accountSettings" class="user_view">
+          <div class="accout_settings">
+            <h2 class="content_title">Accout Settings</h2>
+            <h4 class="title_border">Edit Account</h4>
+            <form>
+              <div class="input_group row">
+                <label for="Username" class="three columns">Username</label>
+                <input type="text" class="four columns"/><span class="four columns">Choose Username. Letters and Number only</span>
+              </div>
+              <div class="input_group row">
+                <label for="Your name" class="three columns">Your Name</label>
+                <input type="text" class="four columns"/><span class="four columns">Enter Your Full Name</span>
+              </div>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Email</label>
+                <input type="email" class="four columns"/><span class="four columns">Enter Your Email Address</span>
+              </div>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Phone</label>
+                <input type="tel" class="four columns"/><span class="four columns">Enter Your Phone Number</span>
+              </div>
+            </form>
+            <h4 class="title_border">New Password</h4>
+            <form>
+              <div class="input_group row">
+                <label for="Username" class="three columns">New Password</label>
+                <input type="password" class="four columns"/><span class="four columns">Enter a new password or leave blank to keep the same</span>
+              </div>
+              <div class="input_group row">
+                <label for="Username" class="three columns">Confirm New Password</label>
+                <input type="password" class="four columns"/><span class="four columns">Enter above password or leave blank to keep the same</span>
+              </div>
+              <button>Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </body>
