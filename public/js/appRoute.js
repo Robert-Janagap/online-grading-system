@@ -9,14 +9,17 @@ app.config(function($routeProvider){
 		})
 		.when('/teacher',{
 			templateUrl: 'views/teachers.html',
-			controller: 'teacherCtrl'
-			// resolve:{
-			// 	logincheck: checkLogin
-			// }
+			controller: 'teacherCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/student',{
 			templateUrl: 'views/student.html',
-			controller: 'studentCtrl'
+			controller: 'studentCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.otherwise({
 			redirectTo: '/'

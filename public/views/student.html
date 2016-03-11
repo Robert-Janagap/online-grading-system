@@ -9,8 +9,9 @@
         <div ng-controller="navCtrl" class="navigation u-cf"><a href="#/" class="logo">Online Grading System</a>
           <nav> 
             <ul>
-              <li>
-                <input type="text"/>
+              <li class="search_input">
+                <input type="text" ng-model="classId"/>
+                <button ng-click="searchClassId(classId)">Search now</button>
               </li>
               <li><a href="" ng-click="studentClassList()">Classes</a></li>
               <li><a href="" ng-click="studentAccount()">Account</a></li>
@@ -39,48 +40,39 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Algebra</a></td>
-                <td> <a href="">
-                    <Tom>Kumar <a href="" class="student_grade">95%</a></Tom></a></td>
-              </tr>
-              <tr>
-                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Science</a></td>
-                <td> <a href="">
-                    <Janie>Diean <a href="" class="student_grade">95%</a></Janie></a></td>
-              </tr>
-              <tr>
-                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">SOFTWEN</a></td>
-                <td> <a href="">
-                    <Billy>Cyrus <a href="" class="student_grade">95%</a></Billy></a></td>
-              </tr>
-              <tr>
-                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">ADDPROG</a></td>
-                <td> <a href="">
-                    <Hannah>Babbles <a href="" class="student_grade">95%</a></Hannah></a></td>
+              <tr ng-repeat="sClass in studentClass">
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="viewSummary(sClass)">{{sClass.class_name}}</a></td>
+                <td> <a href="">{{sClass.teacher_name}} <a href="" class="student_grade">95%</a></a></td>
               </tr>
             </tbody>
           </table>
         </div>
         <div ng-show="classSummary" class="user_view">
-          <h2 class="content_title">Algebra</h2>
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="studentClassList()">Your Class List</a></li>
+            <li class="active"><a href="">{{cInfo.class_name}}</a></li>
+          </ul>
+          <h2 class="content_title">{{cInfo.class_name}}</h2>
           <div class="tab">
             <h4>Class Summary</h4>
             <table>
               <thead>
                 <tr>
                   <th>Grading Period</th>
-                  <th>Quiz 
-                    <div>( 25% )</div>
+                  <th>Assignments 
+                    <div>({{cInfo.assignments}} %)</div>
                   </th>
-                  <th>Attendance
-                    <div>( 25% )</div>
+                  <th>Attendance 
+                    <div>({{cInfo.attendance}} %)</div>
                   </th>
                   <th>Laboratory
-                    <div>( 25% )</div>
+                    <div>({{cInfo.laboratory}} %)</div>
                   </th>
-                  <th>Examination
-                    <div>( 25% )</div>
+                  <th>Quiz
+                    <div>({{cInfo.quiz}} %)</div>
+                  </th>
+                  <th>Exam
+                    <div>({{cInfo.exam}} %)</div>
                   </th>
                   <th>Grade</th>
                 </tr>
@@ -92,6 +84,7 @@
                   <td> <a href="">10%</a></td>
                   <td> <a href="" ng-click="showGradingReport()">30%</a></td>
                   <td> <a href="">10%</a></td>
+                  <td> <a href="">10%</a></td>
                   <td>89%</td>
                 </tr>
                 <tr>
@@ -99,6 +92,7 @@
                   <td> <a href="">20%</a></td>
                   <td> <a href="">10%</a></td>
                   <td> <a href="" ng-click="showGradingReport()">30%</a></td>
+                  <td> <a href="">10%</a></td>
                   <td> <a href="">10%</a></td>
                   <td>85%</td>
                 </tr>
@@ -108,10 +102,12 @@
                   <td> <a href="">10%</a></td>
                   <td> <a href="" ng-click="showGradingReport()">30%</a></td>
                   <td> <a href="">10%</a></td>
+                  <td> <a href="">10%</a></td>
                   <td>78%</td>
                 </tr>
                 <tr>
                   <td>Total Grade</td>
+                  <td> </td>
                   <td> </td>
                   <td> </td>
                   <td> </td>
@@ -155,6 +151,28 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div ng-show="searchClass" class="user_view"><span ng-show="noClassMgs" class="errMsg2">{{noClassMgs}}</span>
+          <h2 class="content_title">{{classInfo.class_name}}</h2>
+          <div class="tab teacher_classInfo u-cf">
+            <h4 class="title_border">Class Info</h4>
+            <ul>
+              <li><span>Instructor:</span> {{classInfo.teacher_name}}</li>
+              <li><span>Instructor Id:</span> {{classInfo.teacher_id}}</li>
+              <li><span>Class name:</span> {{classInfo.class_name}}</li>
+              <li><span>Class Id:</span> {{classInfo.class_id}}</li>
+              <li><span>Year:</span> {{classInfo.year}}</li>
+            </ul>
+            <h4 class="title_border">Criteria</h4>
+            <ul>
+              <li><span>Attendance :</span> {{classInfo.criteria.attendance}} %</li>
+              <li><span>Quiz :</span> {{classInfo.criteria.quiz}} %</li>
+              <li><span>Laboratory:</span> {{classInfo.criteria.laboratory}} %</li>
+              <li><span>Assignments :</span> {{classInfo.criteria.assignments}} %</li>
+              <li><span>Exam :</span> {{classInfo.criteria.exam}} %</li>
+            </ul>
+            <div ng-click="studentGetClass(classInfo)" class="btn_2">Join now</div>
           </div>
         </div>
       </div>

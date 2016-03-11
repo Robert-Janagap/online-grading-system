@@ -77,6 +77,33 @@ app.get('/dbTeacher', function(req, res){
     });
 });
 
+app.get( '/database',function ( req,res ) {
+
+    dbTeacher.find({},function ( err,data ) {
+
+        res.json( data );
+
+    } );
+
+} );
+app.get( '/database2',function ( req,res ) {
+
+    users.find({},function ( err,data ) {
+
+        res.json( data );
+
+    } );
+
+} );
+app.get( '/database3',function ( req,res ) {
+
+    dbStudents.find({},function ( err,data ) {
+
+        res.json( data );
+
+    } );
+
+} );
 //server listening
 http.createServer( app ).listen( port,function() {
 

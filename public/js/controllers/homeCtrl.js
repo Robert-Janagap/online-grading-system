@@ -10,9 +10,13 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 				if(data === 'exist'){
 					$scope.errMsg = "Username already used!";
 				}else{
+					if(data.role === "teacher"){
+						$location.url('/' + "teacher");
+					}else if(data.role === "student"){
+						$location.url('/' + "student");
+					}
 					$scope.newUser = "";
 					$scope.errMsg =false;
-
 				}
 			});
 		}

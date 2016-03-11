@@ -9,8 +9,9 @@ html(lang="en")
                     a(href="#/").logo Online Grading System
                     nav 
                         ul
-                            li
-                                input(type="text")
+                            li.search_input
+                                input(type="text" ng-model="classId")
+                                button(ng-click="searchClassId(classId)") Search now
                             li
                                 a(href="" ng-click="studentClassList()") Classes
                             li
@@ -38,42 +39,33 @@ html(lang="en")
                                 th.th_col1 Class 
                                 th.th_col2 Teacher <img src="/img/icn_grade.png">
                         tbody
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Algebra</a>
+                            tr(ng-repeat="sClass in studentClass")
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary(sClass)">{{sClass.class_name}}</a>
                                 td 
-                                    a(href="")
-                                        Tom Kumar <a href="" class="student_grade">95%</a>
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">Science</a>
-                                td 
-                                    a(href="")
-                                        Janie Diean <a href="" class="student_grade">95%</a>
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">SOFTWEN</a>
-                                td 
-                                    a(href="")
-                                        Billy Cyrus <a href="" class="student_grade">95%</a>
-                            tr
-                                td <img src="/img/icn_book.png"> <a href="" ng-click="viewSummary()">ADDPROG</a>
-                                td 
-                                    a(href="")
-                                        Hannah Babbles <a href="" class="student_grade">95%</a>
+                                    a(href="") {{sClass.teacher_name}} <a href="" class="student_grade">95%</a>
                 .user_view(ng-show="classSummary")
-                    h2.content_title Algebra
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="studentClassList()") Your Class List
+                        li.active
+                            a(href="" ) {{cInfo.class_name}}
+                    h2.content_title {{cInfo.class_name}}
                     .tab
                         h4 Class Summary
                         table
                             thead
                                 tr
                                     th Grading Period
-                                    th Quiz 
-                                        div ( 25% )
-                                    th Attendance
-                                        div ( 25% )
+                                    th Assignments 
+                                        div ({{cInfo.assignments}} %)
+                                    th Attendance 
+                                        div ({{cInfo.attendance}} %)
                                     th Laboratory
-                                        div ( 25% )
-                                    th Examination
-                                        div ( 25% )
+                                        div ({{cInfo.laboratory}} %)
+                                    th Quiz
+                                        div ({{cInfo.quiz}} %)
+                                    th Exam
+                                        div ({{cInfo.exam}} %)
                                     th Grade
                             tbody
                                 tr
@@ -84,6 +76,8 @@ html(lang="en")
                                         a(href="") 10%
                                     td 
                                         a(href="" ng-click="showGradingReport()") 30%
+                                    td 
+                                        a(href="") 10%
                                     td 
                                         a(href="") 10%
                                     td 89%
@@ -97,6 +91,8 @@ html(lang="en")
                                         a(href="" ng-click="showGradingReport()") 30%
                                     td 
                                         a(href="") 10%
+                                    td 
+                                        a(href="") 10%
                                     td 85%
                                 tr
                                     td Final
@@ -108,9 +104,12 @@ html(lang="en")
                                         a(href="" ng-click="showGradingReport()") 30%
                                     td 
                                         a(href="" ) 10%
+                                    td 
+                                        a(href="") 10%
                                     td 78%
                                 tr
                                     td Total Grade
+                                    td 
                                     td 
                                     td 
                                     td 
@@ -143,4 +142,22 @@ html(lang="en")
                                     td 15/15
                                     td 17/20
                                     td 15/15
-                
+                .user_view(ng-show="searchClass")
+                    span.errMsg2(ng-show="noClassMgs") {{noClassMgs}}
+                    h2.content_title {{classInfo.class_name}}
+                    .tab.teacher_classInfo.u-cf
+                        h4.title_border Class Info
+                        ul
+                            li <span>Instructor:</span> {{classInfo.teacher_name}}
+                            li <span>Instructor Id:</span> {{classInfo.teacher_id}}
+                            li <span>Class name:</span> {{classInfo.class_name}}
+                            li <span>Class Id:</span> {{classInfo.class_id}}
+                            li <span>Year:</span> {{classInfo.year}}
+                        h4.title_border Criteria
+                        ul
+                            li <span>Attendance :</span> {{classInfo.criteria.attendance}} %
+                            li <span>Quiz :</span> {{classInfo.criteria.quiz}} %
+                            li <span>Laboratory:</span> {{classInfo.criteria.laboratory}} %
+                            li <span>Assignments :</span> {{classInfo.criteria.assignments}} %
+                            li <span>Exam :</span> {{classInfo.criteria.exam}} %
+                        .btn_2(ng-click="studentGetClass(classInfo)") Join now

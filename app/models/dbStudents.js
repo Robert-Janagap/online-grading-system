@@ -5,16 +5,49 @@ var router = express.Router();
 
 var	students  =new mongoose.Schema( {
 	student_id: String,
+	student_name: String,
+	teacher_name: String,
+	teacher_id: String,
 	class_name: String,
 	class_id: String,
 	year: String,
-	activity:[{
-		activity_type: String,
+	attendance: Number,
+	quiz: Number,
+	assignments: Number,
+	laboratory: Number,
+	exam: Number,
+	attendance_record:[{
 		activity_id: String,
 		activity_name: String,
 		activity_date: String,
 		score: Number,
-		total_score: Number
+		term: String
+	}],
+	quiz_record:[{
+		activity_id: String,
+		activity_name: String,
+		activity_date: String,
+		score: Number,
+		totalScore: Number,
+		term: String
+	}],
+	laboratory_record:[{
+		activity_id: String,
+		activity_name: String,
+		activity_date: String,
+		score: Number,
+		term: String
+	}],
+	assignments_record:[{
+		activity_id: String,
+		activity_name: String,
+		activity_date: String,
+		score: Number,
+		term: String
+	}],
+	exam_record:[{
+		term: String,
+		score: Number
 	}]
 
 },{ collection : 'dbStudents'} );

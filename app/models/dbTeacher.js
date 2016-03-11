@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var	teacher  =new mongoose.Schema( {
+	teacher_name: String,
 	teacher_id: String,
 	class_name: String,
 	class_id: String,
@@ -23,7 +24,8 @@ var	teacher  =new mongoose.Schema( {
 		activity_name: String,
 		activity_date: String,
 		score: Number,
-		total_score: Number
+		total_score: Number,
+		term: String
 	}]
 
 },{ collection : 'dbTeachers'} );

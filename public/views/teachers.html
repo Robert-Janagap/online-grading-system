@@ -87,18 +87,21 @@
           <table>
             <thead>
               <tr>
-                <th class="th_col1">Class <img src="/img/icn_student_count.png"></th>
+                <th class="th_col1">Class </th>
+                <!--<img src="/img/icn_student_count.png">-->
                 <th class="th_col2">Class Code</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="teacherClass in classList">
-                <td><img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a> <a href="" class="student_count">2</a></td>
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a></td>
+                <!-- <a href="" class="student_count">{{teacherClass.sCount}}</a>-->
                 <td>{{teacherClass.class_id}}</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <!--student class list-->
         <div ng-show="teacherClass" class="user_view">
           <ul class="breadcrumb">
             <li class="active"><a href="">{{classInfo.class_name}}</a></li>
@@ -118,47 +121,20 @@
                   <th>Quiz</th>
                   <th>Attendance</th>
                   <th>Laboratory</th>
+                  <th>Assignments</th>
                   <th>Exam</th>
                   <th>Grade</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz</td>
-                  <td>3%</td>
-                  <td>20%</td>
-                  <td>35%</td>
-                  <td>32%</td>
-                  <td>44%</td>
-                </tr>
-                <tr>
-                  <td>Xfol</td>
-                  <td>3%</td>
-                  <td>20%</td>
-                  <td>35%</td>
-                  <td>32%</td>
-                  <td>44%</td>
-                </tr>
-                <tr>
-                  <td>Nitsuj</td>
-                  <td>3%</td>
-                  <td>20%</td>
-                  <td>35%</td>
-                  <td>32%</td>
-                  <td>44%</td>
-                </tr>
-                <tr>
-                  <td>Loda</td>
-                  <td>3%</td>
-                  <td>20%</td>
-                  <td>35%</td>
-                  <td>32%</td>
-                  <td>44%</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+        <!--student attendance-->
         <div ng-show="showAttendance" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -171,89 +147,41 @@
             <li>Final</li>
           </ul>
           <div class="tab">
-            <h4>March 8 2016</h4>
+            <h4>{{dateToday}} - {{dayToday}}</h4>
             <div class="tab_top_content">
-              <div class="btn_2">Add Column</div><span class="total_days">Total: <span>5</span></span>
+              <div ng-click="newAttendance()" class="btn_2">Add Column</div><span class="total_days"> </span>
               <div class="color_guide"><span><span class="clr_black"> </span>Good</span><span><span class="clr_yellow"> </span>Warning</span><span><span class="clr_drop"> </span>Drop</span></div>
             </div>
-            <table class="margin_top">
+            <table class="margin_top attendance_header">
               <thead>
-                <tr>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th>1-2-12 Monday</th>
-                  <th>1-2-13 Thuesday</th>
-                  <th>1-2-14 Wednesday</th>
-                  <th>1-2-15 Thursday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>1-2-16 Friday</th>
-                  <th>Total</th>
+                  <th ng-repeat="test in students.attendance_record"><a>{{test.activity_date}}</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz ( 3 )</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td class="clr_drop">Xfol ( 4 )</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td class="clr_warning">Nitsuj ( 5 )</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td>Loda ( 6 )</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>15</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.attendance_record"><a>{{scores.score}}</a></td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="studentAttendance" class="today_attendance">
+              <div class="today_attendance_inner u-cf"><span>{{dateToday}}</span>
+                <h4 class="title_border">Attendance</h4>
+                <ul>
+                  <li ng-repeat="students in studentClassList"> 
+                    <label>{{students.student_name}}
+                      <input type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)"/>
+                    </label>
+                  </li>
+                  <div ng-click="closeAttendance()" class="btn_2 pull-right">Done</div>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
+        <!--student list-->
         <div ng-show="studentsList" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -266,35 +194,21 @@
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>ID</th>
+                  <th>Student ID</th>
                   <th> <a href=""><img src="/img/png_settings.png" alt=""/></a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz</td>
-                  <td>12321</td>
-                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
-                </tr>
-                <tr>
-                  <td>Xfol</td>
-                  <td>13123</td>
-                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
-                </tr>
-                <tr>
-                  <td>Nitsuj</td>
-                  <td>123213</td>
-                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
-                </tr>
-                <tr>
-                  <td>Loda</td>
-                  <td>123213</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td>{{students.student_id}}</td>
                   <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+        <!--student quiz-->
         <div ng-show="studentQuiz" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -309,7 +223,7 @@
           <div class="tab">
             <h4> </h4>
             <div class="tab_top_content">
-              <div class="btn_2">Add Quiz</div><span class="total_days">Total: <span>60</span></span>
+              <div ng-click="showQuizConfig()" class="btn_2">Add Quiz</div><span class="total_days"> </span>
             </div>
             <table class="margin_top">
               <thead>
@@ -327,32 +241,35 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz ( 24 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Xfol ( 27 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Nitsuj ( 25 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Loda ( 29 )</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
                   <td>10/10</td>
                   <td>17/20</td>
                   <td>10/15</td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="viewQuizConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newQuiz.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label class="quiz_name">Quiz name</label>
+                    <input type="text" ng-model="newQuiz.activity_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-blur="saveQuiz(newQuiz)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeQuiz()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div ng-show="studentAssignments" class="user_view">

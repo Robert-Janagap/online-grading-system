@@ -89,12 +89,15 @@ html(lang="en")
                     table
                         thead
                             tr
-                                th.th_col1 Class <img src="/img/icn_student_count.png">
+                                th.th_col1 Class 
+                                //<img src="/img/icn_student_count.png">
                                 th.th_col2 Class Code
                         tbody
                             tr(ng-repeat="teacherClass in classList")
-                                td <img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a> <a href="" class="student_count">2</a>
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a>
+                                // <a href="" class="student_count">{{teacherClass.sCount}}</a>
                                 td {{teacherClass.class_id}}
+                //student class list
                 .user_view(ng-show="teacherClass")
                     ul.breadcrumb
                         li.active
@@ -113,37 +116,13 @@ html(lang="en")
                                     th Quiz
                                     th Attendance
                                     th Laboratory
+                                    th Assignments
                                     th Exam
                                     th Grade
                             tbody
-                                tr
-                                    td Wizardz
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
-                                tr
-                                    td Xfol
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
-                                tr
-                                    td Nitsuj
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
-                                tr
-                                    td Loda
-                                    td 3%
-                                    td 20%
-                                    td 35%
-                                    td 32%
-                                    td 44%
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                //student attendance
                 .user_view(ng-show="showAttendance")
                     ul.breadcrumb
                         li
@@ -156,10 +135,11 @@ html(lang="en")
                         li Midterm
                         li Final
                     .tab
-                        h4 March 8 2016
+                        h4 {{dateToday}} - {{dayToday}}
                         .tab_top_content
-                            .btn_2 Add Column
-                            span.total_days Total: <span>5</span>
+                            .btn_2(ng-click="newAttendance()") Add Column
+                            span.total_days 
+                            //- Total: <span>5</span>
                             .color_guide
                                 span
                                     span.clr_black 
@@ -170,74 +150,27 @@ html(lang="en")
                                 span
                                     span.clr_drop 
                                     | Drop
-                        table.margin_top
+                        table.margin_top.attendance_header
                             thead
-                                tr
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th 1-2-12 Monday
-                                    th 1-2-13 Thuesday
-                                    th 1-2-14 Wednesday
-                                    th 1-2-15 Thursday
-                                    th 1-2-16 Friday
-                                    th 1-2-16 Friday
-                                    th 1-2-16 Friday
-                                    th 1-2-16 Friday
-                                    th 1-2-16 Friday
-                                    th 1-2-16 Friday
-                                    th Total
+                                    th(ng-repeat = "test in students.attendance_record")
+                                        a {{test.activity_date}}
                             tbody
-                                tr
-                                    td Wizardz ( 3 )
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 15
-                                tr
-                                    td.clr_drop Xfol ( 4 )
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 15
-                                tr
-                                    td.clr_warning Nitsuj ( 5 )
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 15
-                                tr
-                                    td Loda ( 6 )
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 0
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 1
-                                    td 15
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.attendance_record")
+                                        a {{scores.score}}
+                        .today_attendance(ng-show="studentAttendance")
+                            .today_attendance_inner.u-cf
+                                span {{dateToday}}
+                                h4.title_border Attendance
+                                ul
+                                    li(ng-repeat="students in studentClassList") 
+                                        label {{students.student_name}}
+                                            input(type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)")
+                                    .btn_2.pull-right(ng-click="closeAttendance()") Done
+                //student list
                 .user_view(ng-show="studentsList")
                     ul.breadcrumb
                         li
@@ -252,36 +185,19 @@ html(lang="en")
                             thead
                                 tr
                                     th Name
-                                    th ID
+                                    th Student ID
                                     th 
                                         a(href="")
                                             img(src="/img/png_settings.png", alt="")
                             tbody
-                                tr
-                                    td Wizardz
-                                    td 12321
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td {{students.student_id}}
                                     td 
                                         a(href="")
                                             
                                             img(src="/img/png_settings.png", alt="")
-                                tr
-                                    td Xfol
-                                    td 13123
-                                    td 
-                                         a(href="")
-                                            img(src="/img/png_settings.png", alt="")
-                                tr
-                                    td Nitsuj
-                                    td 123213
-                                    td 
-                                         a(href="")
-                                            img(src="/img/png_settings.png", alt="")
-                                tr
-                                    td Loda
-                                    td 123213
-                                    td 
-                                         a(href="")
-                                            img(src="/img/png_settings.png", alt="")
+                //student quiz
                 .user_view(ng-show="studentQuiz")
                     ul.breadcrumb
                         li
@@ -297,8 +213,9 @@ html(lang="en")
                     .tab
                         h4 
                         .tab_top_content
-                            .btn_2 Add Quiz
-                            span.total_days Total: <span>60</span>
+                            .btn_2(ng-click="showQuizConfig()") Add Quiz
+                            span.total_days 
+                            //- Total: <span>60</span>
                         table.margin_top
                             thead
                                 tr
@@ -310,26 +227,26 @@ html(lang="en")
                                     th 1-2-14 Wednesday
                                         .activity_name activity #1
                             tbody
-                                tr
-                                    td Wizardz ( 24 )
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
                                     td 10/10
                                     td 17/20
                                     td 10/15
-                                tr
-                                    td Xfol ( 27 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
-                                tr
-                                    td Nitsuj ( 25 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
-                                tr
-                                    td Loda ( 29 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
+                        .sub_view_modal(ng-show="viewQuizConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newQuiz.totalScore").small_input
+                                    .input_group.u-cf
+                                        label.quiz_name Quiz name
+                                        input(type="text" ng-model="newQuiz.activity_name")
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-blur="saveQuiz(newQuiz)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeQuiz()") Done
                 .user_view(ng-show="studentAssignments")
                     ul.breadcrumb
                         li
