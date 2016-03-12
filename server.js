@@ -13,7 +13,7 @@ var express =require( 'express' ),
 
 // connect to database
 // mongoose.connect('mongodb://127.0.0.1/gradingSystem');
-mongoose.connect('mongodb://gradingSystem:robert@ds011419.mlab.com:11419/gradingSystem');
+mongoose.connect('mongodb://gradingSystem:robert@ds011419.mlab.com:11419/heroku_r8mrg14f');
 
 // mongodb://<gradingSystem>:<robert>@ds011419.mlab.com:11419/heroku_r8mrg14f
 
