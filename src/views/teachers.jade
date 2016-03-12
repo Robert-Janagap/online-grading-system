@@ -103,7 +103,7 @@ html(lang="en")
                         li.active
                             a(href="") {{classInfo.class_name}}
                     h2.content_title {{classInfo.class_name}}
-                    ul.content_view_tabs
+                    tabselect.content_view_tabs
                         li.active Prelim
                         li Midterm
                         li Final
@@ -113,15 +113,22 @@ html(lang="en")
                             thead
                                 tr
                                     th Name
-                                    th Quiz
                                     th Attendance
-                                    th Laboratory
+                                    th Quiz
                                     th Assignments
+                                    th Laboratory
                                     th Exam
                                     th Grade
                             tbody
                                 tr(ng-repeat="students in studentClassList")
                                     td {{students.student_name}}
+                                    td {{students.totalAttendance}} % 
+                                    td {{students.totalQuiz}} %
+                                    td {{students.totalAssignments}} %
+                                    td {{students.totalLab}} %
+                                    td {{students.totalExam}} %
+                                    //- td {{students.grade}} %
+                                    td {{grade(students.totalQuiz, students.totalAttendance, students.totalAssignments, students.totalLab, students.totalExam)}} %
                 //student attendance
                 .user_view(ng-show="showAttendance")
                     ul.breadcrumb
@@ -154,8 +161,8 @@ html(lang="en")
                             thead
                                 tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th(ng-repeat = "test in students.attendance_record")
-                                        a {{test.activity_date}}
+                                    th(ng-repeat = "actDate in students.attendance_record")
+                                        a {{actDate.activity_date}}
                             tbody
                                 tr(ng-repeat="students in studentClassList")
                                     td {{students.student_name}}
@@ -166,9 +173,13 @@ html(lang="en")
                                 span {{dateToday}}
                                 h4.title_border Attendance
                                 ul
+                                    li.attendance_check 
+                                        span Present
+                                        span Not Present
                                     li(ng-repeat="students in studentClassList") 
                                         label {{students.student_name}}
                                             input(type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)")
+                                            input(type="checkbox" ng-model="students.uncheckAttendance" ng-change="saveAttendance(students, dateToday)")
                                     .btn_2.pull-right(ng-click="closeAttendance()") Done
                 //student list
                 .user_view(ng-show="studentsList")
@@ -216,22 +227,18 @@ html(lang="en")
                             .btn_2(ng-click="showQuizConfig()") Add Quiz
                             span.total_days 
                             //- Total: <span>60</span>
-                        table.margin_top
+                        table.margin_top.attendance_header
                             thead
-                                tr
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th 1-2-12 Monday
-                                        .activity_name activity #1
-                                    th 1-2-13 Thuesday
-                                        .activity_name activity #1
-                                    th 1-2-14 Wednesday
-                                        .activity_name activity #1
+                                    th(ng-repeat = "actDate in students.quiz_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
                             tbody
                                 tr(ng-repeat="students in studentClassList")
                                     td {{students.student_name}}
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
+                                    td(ng-repeat = "scores in students.quiz_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
                         .sub_view_modal(ng-show="viewQuizConfig")
                             .overflow
                                 .sub_view_modal_inner.u-cf
@@ -240,13 +247,14 @@ html(lang="en")
                                         label.quiz_total_score Total score
                                         input(type="text" ng-model="newQuiz.totalScore").small_input
                                     .input_group.u-cf
-                                        label.quiz_name Quiz name
-                                        input(type="text" ng-model="newQuiz.activity_name")
+                                        label Quiz name
+                                        input(type="text" ng-model="newQuiz.activity_name").quiz_name
                                     ul
                                         li(ng-repeat="students in studentClassList") 
                                             label {{students.student_name}}
-                                            input(type="text" ng-blur="saveQuiz(newQuiz)").input_quiz
+                                            input(type="text" ng-model="scoreQuiz.score" ng-bind =false ng-blur="saveQuiz(newQuiz, students, scoreQuiz)").input_quiz
                                     .btn_2.pull-right(ng-click="closeQuiz()") Done
+                //student assignmets
                 .user_view(ng-show="studentAssignments")
                     ul.breadcrumb
                         li
@@ -261,39 +269,37 @@ html(lang="en")
                     .tab
                         h4
                         .tab_top_content
-                            .btn_2 Add Assignments
-                            span.total_days Total: <span>90</span>
-                        table.margin_top
+                            .btn_2(ng-click="showAssignment()") Add Assignments
+                            span.total_days
+                             //- Total: <span>90</span>
+                        table.margin_top.attendance_header
                             thead
-                                tr
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th 1-2-12 Monday
-                                        .activity_name activity #1
-                                    th 1-2-13 Thuesday
-                                        .activity_name activity #1
-                                    th 1-2-14 Wednesday
-                                        .activity_name activity #1
+                                    th(ng-repeat = "actDate in students.assignments_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
                             tbody
-                                tr
-                                    td Wizardz ( 24 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
-                                tr
-                                    td Xfol ( 27 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
-                                tr
-                                    td Nitsuj ( 25 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
-                                tr
-                                    td Loda ( 29 )
-                                    td 10/10
-                                    td 17/20
-                                    td 10/15
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.assignments_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewAssignConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newAssign.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Assignment name
+                                        input(type="text" ng-model="newAssign.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreAssign.score" ng-bind =false ng-blur="saveAssign(newAssign, students, scoreAssign)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeAssign()") Done
+                //laboratory
                 .user_view(ng-show="studentsLab")
                     ul.breadcrumb
                         li
@@ -308,39 +314,37 @@ html(lang="en")
                     .tab
                         h4
                         .tab_top_content
-                            .btn_2 Add Laboratory
-                            span.total_days Total: <span>120</span>
-                        table.margin_top
+                            .btn_2(ng-click="showLab()") Add Laboratory
+                            span.total_days 
+                            //- Total: <span>120</span>
+                        table.margin_top.attendance_header
                             thead
-                                tr
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th 1-2-12 Monday
-                                        .activity_name activity #1
-                                    th 1-2-13 Thuesday
-                                        .activity_name activity #1
-                                    th 1-2-14 Wednesday
-                                        .activity_name activity #1
+                                    th(ng-repeat = "actDate in students.laboratory_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
                             tbody
-                                tr
-                                    td Wizardz ( 24 )
-                                    td 15/15
-                                    td 17/20
-                                    td 15/15
-                                tr
-                                    td Xfol ( 27 )
-                                    td 15/15
-                                    td 17/20
-                                    td 15/15
-                                tr
-                                    td Nitsuj ( 25 )
-                                    td 15/15
-                                    td 17/20
-                                    td 15/15
-                                tr
-                                    td Loda ( 29 )
-                                    td 15/15
-                                    td 17/20
-                                    td 15/15
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.laboratory_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewLabConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newLab.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Laboratory name
+                                        input(type="text" ng-model="newLab.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreLab.score" ng-bind =false ng-blur="saveLab(newLab, students, scoreLab)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeLab()") Done
+                //view student exam
                 .user_view(ng-show="studentExam")
                     ul.breadcrumb
                         li
@@ -355,25 +359,34 @@ html(lang="en")
                     .tab
                         h4
                         .tab_top_content
-                            .btn_2 Add Exam
-                        table.margin_top
+                            .btn_2(ng-click="showExam()") Add Exam
+                        table.margin_top.attendance_header
                             thead
-                                tr
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
                                     th Name
-                                    th 1-2-12 Monday
+                                    th(ng-repeat = "actDate in students.exam_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
                             tbody
-                                tr
-                                    td Wizardz
-                                    td 15/15
-                                tr
-                                    td Xfol
-                                    td 15/15
-                                tr
-                                    td Nitsuj
-                                    td 15/15
-                                tr
-                                    td Loda
-                                    td 15/15
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.exam_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewExamConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newExam.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Exam name
+                                        input(type="text" ng-model="newExam.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreExam.score" ng-bind =false ng-blur="saveExam(newExam, students, scoreExam)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeExam()") Done
                 .user_view(ng-show="teacherSettings")
                     .settings 
                         ul.breadcrumb

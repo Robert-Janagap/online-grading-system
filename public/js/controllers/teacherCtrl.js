@@ -3,7 +3,7 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 //dynamic
  var teacher_id = $rootScope.currentUser.userId;
  var teacher_name = $rootScope.currentUser.name;
- var term ="prelim"
+ var term ="prelim";
 // static id (dev) = 1990551
     //var teacher_id = 1990551;
     //var teacher_name = 'Robert Janagap';
@@ -66,10 +66,130 @@ $scope.selectClass = function(classInfo){ // class
 
     $http.get('/teacher/classStudents/' + classInfo.class_id).success(function(data){
         $scope.studentClassList = data;
+
+        //assignments
+        for (var i = 0; i < data.length; i++) {
+            var totalAssignments = 0;
+            var totalScore = 0;
+            var labPercent = data[i].assignments;
+            var equal = 0;
+            for (var a = data[i].assignments_record.length - 1;a >=0; a--) {
+                totalAssignments += data[i].assignments_record[a].score;
+                totalScore += data[i].assignments_record[a].totalScore;
+
+
+                equal = (totalAssignments / totalScore) * labPercent;
+                data[i].totalAssignments = equal.toFixed(2);
+                data[i].equals = equal;
+
+            }
+
+        }
+        //lab
+        for (var i = 0; i < data.length; i++) {
+            var total = 0;
+            var totalScores = 0;
+            var percent = data[i].laboratory;
+            var equal = 0;
+            
+            for (var a = data[i].laboratory_record.length - 1;a >=0; a--) {
+                total += data[i].laboratory_record[a].score;
+                totalScores += data[i].laboratory_record[a].totalScore;
+
+
+                equal = (total / totalScores) * percent;
+                data[i].totalLab= equal.toFixed(2);
+                data[i].equals = equal;
+            }
+
+        }
+        //quiz
+        for (var i = 0; i < data.length; i++) {
+            var total = 0;
+            var totalScores = 0;
+            var percent = data[i].quiz;
+            var equal = 0;
+            
+            for (var a = data[i].quiz_record.length - 1;a >=0; a--) {
+                total += data[i].quiz_record[a].score;
+                totalScores += data[i].quiz_record[a].totalScore;
+
+
+                equal = (total / totalScores) * percent;
+                data[i].totalQuiz= equal.toFixed(2);
+                data[i].equals = equal;
+            }
+        }
+        //exam
+        for (var i = 0; i < data.length; i++) {
+            var total = 0;
+            var totalScores = 0;
+            var percent = data[i].exam;
+            var equal = 0;
+            for (var a = data[i].exam_record.length - 1;a >=0; a--) {
+                total += data[i].exam_record[a].score;
+                totalScores += data[i].exam_record[a].totalScore;
+
+
+                equal = (total / totalScores) * percent;
+                data[i].totalExam= equal.toFixed(2);
+                data[i].equals = equal;
+            }
+        }
+        //attendance
+        for (var i = 0; i < data.length; i++) {
+            var total = 0;
+            var totalScores = 0;
+            var percent = data[i].attendance;
+            var equal = 0;
+            for (var a = data[i].attendance_record.length - 1;a >=0; a--) {
+                total += data[i].attendance_record[a].score;
+                totalScores = data[i].attendance_record.length;
+
+                equal = (total / totalScores) * percent;
+                data[i].totalAttendance= equal.toFixed(2);
+                data[i].equals = equal;
+            }
+        }
+        $scope.grade = function(g1, g2, g3, g4, g5){
+            var total = parseFloat(g1) + parseFloat(g2) + parseFloat(g3) + parseFloat(g4) + parseFloat(g5);
+            return total.toFixed(2);
+        }
     });
 
 }
+$scope.viewPrelim = function(){
+    $scope.term = "prelim";
+    var display = [];
+    $http.get('/teacher/classStudents/' + $scope.classInfo.class_id).success(function(data){
+        $scope.studentClassList = data;
 
+            for (var a = data[1].attendance_record.length - 1;a >=0; a--) {
+                if($scope.term === data[1].attendance_record[1].term){
+                    display.push(data[1].attendance_record[1]);
+                }
+            }
+            console.log(display);
+
+
+    });
+}
+$scope.viewMid = function(){
+    $scope.term = "midterm";
+    var display = [];   
+    $http.get('/teacher/classStudents/' + $scope.classInfo.class_id).success(function(data){
+        $scope.studentClassList = data;
+
+        for (var a = data[1].attendance_record.length - 1;a >=0; a--) {
+            if($scope.term === data[1].attendance_record[1].term){
+                display.push(data[1].attendance_record[1]);
+            }
+        }
+        console.log(display);
+            
+
+    });
+}
 $scope.saveAttendance = function(entryData , dateToday){
     var act_id = dateToday +'-' +Math.floor(Math.random()*1000000 + 2000000);
 
@@ -77,39 +197,126 @@ $scope.saveAttendance = function(entryData , dateToday){
     entryData.activity_id = act_id;
     entryData.activity_name = dateToday;
     entryData.activity_date= dateToday;
-    entryData.term = term;
+    entryData.term = $scope.term || term;
     
 
     if(entryData.checkAttendance){
         entryData.score = 1;
         $http.put('/teacher/newAttendance', entryData).success(function(data){
-            console.log(data)
+            console.log('present');
         });
     }else{
         entryData.score = 0;
         $http.put('/teacher/newAttendance', entryData).success(function(data){
-            console.log(data)
+            console.log('not present');
         });
     }
 }
 
-$scope.saveQuiz = function(newQuiz){
-    var act_id = dateToday +'-' +Math.floor(Math.random()*1000000 + 2000000);
+$scope.saveQuiz = function(newQuiz, studentInfo, scoreQuiz){
+    var act_id = Math.floor(Math.random()*1000000 + 2000000);
 
 
-    newQuiz.activity_id = act_id;
-    newQuiz.activity_date= dateToday;
-    newQuiz.term = term;
+    studentInfo.activity_id = act_id;
+    studentInfo.activity_date= $scope.dateToday;
+    studentInfo.term = term;
+    studentInfo.totalScore = newQuiz.totalScore;
+    studentInfo.score = scoreQuiz.score;
+    studentInfo.activity_name = newQuiz.activity_name;
 
-    $http.put('/teacher/newQuiz', newQuiz).success(function(data){
+
+    $http.put('/teacher/newQuiz', studentInfo).success(function(data){
         console.log(data)
+    });
+
+}
+
+$scope.saveAssign = function(newAssign, studentInfo, scoreAssign){
+    var act_id = Math.floor(Math.random()*1000000 + 2000000);
+
+
+    studentInfo.activity_id = act_id;
+    studentInfo.activity_date= $scope.dateToday;
+    studentInfo.term = term;
+    studentInfo.totalScore = newAssign.totalScore;
+    studentInfo.score = scoreAssign.score;
+    studentInfo.activity_name = newAssign.activity_name;
+
+
+    $http.put('/teacher/newAssign', studentInfo).success(function(data){
+        console.log(data)
+    });
+
+}
+$scope.saveLab = function(newLab, studentInfo, scoreLab){
+    var act_id = Math.floor(Math.random()*1000000 + 2000000);
+
+
+    studentInfo.activity_id = act_id;
+    studentInfo.activity_date= $scope.dateToday;
+    studentInfo.term = term;
+    studentInfo.totalScore = newLab.totalScore;
+    studentInfo.score = scoreLab.score;
+    studentInfo.activity_name = newLab.activity_name;
+
+
+    $http.put('/teacher/newLab', studentInfo).success(function(data){
+        console.log(data)
+    });
+
+}
+$scope.saveExam = function(newExam, studentInfo, scoreExam){
+    var act_id = Math.floor(Math.random()*1000000 + 2000000);
+
+
+    studentInfo.activity_id = act_id;
+    studentInfo.activity_date= $scope.dateToday;
+    studentInfo.term = term;
+    studentInfo.totalScore = newExam.totalScore;
+    studentInfo.score = scoreExam.score;
+    studentInfo.activity_name = newExam.activity_name;
+
+
+    $http.put('/teacher/newExam', studentInfo).success(function(data){
+        console.log(data)
+    });
+
+}
+
+$scope.restartView = function(){
+    $http.get('/teacher/classStudents/' + $scope.classInfo.class_id).success(function(data){
+        $scope.studentClassList = data;
     });
 }
 $scope.closeQuiz = function(){
     $scope.viewQuizConfig = false;
+    $scope.restartView();
 }
-
-
+$scope.closeAttendance = function(){
+    $scope.studentAttendance = false;
+    $scope.restartView();
+}
+$scope.showAssignment = function(){
+    $scope.viewAssignConfig = true;
+}
+$scope.closeAssign = function(){
+    $scope.viewAssignConfig = false;
+    $scope.restartView();
+}
+$scope.showLab = function(){
+    $scope.viewLabConfig = true;
+}
+$scope.closeLab = function(){
+    $scope.viewLabConfig = false;
+    $scope.restartView();
+}
+$scope.showExam = function(){
+    $scope.viewExamConfig = true;
+}
+$scope.closeExam = function(){
+    $scope.viewExamConfig = false;
+    $scope.restartView();
+}
 //navigation
 $scope.goToAccountSettings = function(){ //account settings
     $scope.accountSettings = true;
@@ -246,12 +453,7 @@ $scope.showQuizConfig = function(){
     $scope.viewQuizConfig = true;
 }
 
-$scope.closeAttendance = function(){
-    $scope.studentAttendance = false;
-    $http.get('/teacher/classStudents/' + $scope.classInfo.class_id).success(function(data){
-        $scope.studentClassList = data;
-    });
-}
+
 $scope.openAttendance = function(){
     $scope.studentAttendance = true;
 }

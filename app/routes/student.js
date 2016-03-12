@@ -44,5 +44,12 @@ router.get('/classList/:id', function(req, res){
 		res.json(data);
 	});
 });
-
+router.get('/yourClass/:id', function(req, res){
+	dbStudents.find({student_id: req.params.id}, function(err, data){
+		if (err){
+			return err;
+		};
+		res.json(data);
+	});
+});
 module.exports = router;

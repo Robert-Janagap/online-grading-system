@@ -80,39 +80,12 @@
               <tbody>
                 <tr>
                   <td>Prelim</td>
-                  <td> <a href="">20%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td>89%</td>
-                </tr>
-                <tr>
-                  <td>Midterm</td>
-                  <td> <a href="">20%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td>85%</td>
-                </tr>
-                <tr>
-                  <td>Final</td>
-                  <td> <a href="">20%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="" ng-click="showGradingReport()">30%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td> <a href="">10%</a></td>
-                  <td>78%</td>
-                </tr>
-                <tr>
-                  <td>Total Grade</td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td>89%</td>
+                  <td> <a href="" ng-click="showGradingReportAssign()">{{studentClassInfo.totalAssignments}} %</a></td>
+                  <td> <a href="" ng-click="showGradingReportAtt()">{{studentClassInfo.totalAttendance}} %</a></td>
+                  <td> <a href="" ng-click="showGradingReportLab()">{{studentClassInfo.totalLab}} %</a></td>
+                  <td> <a href="" ng-click="showGradingReportQuiz()">{{studentClassInfo.totalQuiz}} %</a></td>
+                  <td> <a href="" ng-click="showGradingReport()">{{studentClassInfo.totalExam}}</a></td>
+                  <td> {{grade(studentClassInfo.totalAssignments, studentClassInfo.totalAttendance, studentClassInfo.totalLab, studentClassInfo.totalQuiz, studentClassInfo.totalExam)}} %</td>
                 </tr>
               </tbody>
             </table>
@@ -120,34 +93,25 @@
         </div>
         <div ng-show="gradingReport" class="user_view">
           <ul class="breadcrumb">
-            <li><a href="" ng-click="viewSummary()">Algebra</a></li>
+            <li><a href="" ng-click="viewSummary2()">Algebra</a></li>
             <li class="active"><a href="">Prelim</a></li>
           </ul>
-          <h2 class="content_title">Laboratory</h2>
+          <h2 class="content_title">{{class_name}}</h2>
           <div class="tab">
             <h4>Prelim Report</h4>
-            <div class="tab_top_content"><span class="total_days">Total: <span>120</span></span></div>
-            <table class="margin_top">
+            <div class="tab_top_content">
+            </div>
+            <table class="margin_top attendance_header">
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>1-2-12 Monday
-                    <div class="activity_name">Lab #1</div>
-                  </th>
-                  <th>1-2-13 Thuesday
-                    <div class="activity_name">Lab #2</div>
-                  </th>
-                  <th>1-2-14 Wednesday
-                    <div class="activity_name">Lab #3</div>
-                  </th>
+                  <th ng-repeat="actDate in studentClassInfo"><a>{{actDate.activity_date}}</a><a ng-hide="showAttendance" class="activity_name">{{actDate.activity_name}}</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz ( 24 )</td>
-                  <td>15/15</td>
-                  <td>17/20</td>
-                  <td>15/15</td>
+                <tr> 
+                  <td>{{student_name}}</td>
+                  <td ng-repeat="scores in studentClassInfo"><a>{{scores.score}} <span ng-hide="showAttendance">/ {{scores.totalScore}}</span></a></td>
                 </tr>
               </tbody>
             </table>

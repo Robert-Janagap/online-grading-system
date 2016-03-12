@@ -107,21 +107,21 @@
             <li class="active"><a href="">{{classInfo.class_name}}</a></li>
           </ul>
           <h2 class="content_title">{{classInfo.class_name}}</h2>
-          <ul class="content_view_tabs">
+          <tabselect class="content_view_tabs">
             <li class="active">Prelim</li>
             <li>Midterm</li>
             <li>Final</li>
-          </ul>
+          </tabselect>
           <div class="tab u-cf">
             <h4>Grade</h4>
             <table>
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Quiz</th>
                   <th>Attendance</th>
-                  <th>Laboratory</th>
+                  <th>Quiz</th>
                   <th>Assignments</th>
+                  <th>Laboratory</th>
                   <th>Exam</th>
                   <th>Grade</th>
                 </tr>
@@ -129,6 +129,12 @@
               <tbody>
                 <tr ng-repeat="students in studentClassList">
                   <td>{{students.student_name}}</td>
+                  <td>{{students.totalAttendance}} % </td>
+                  <td>{{students.totalQuiz}} %</td>
+                  <td>{{students.totalAssignments}} %</td>
+                  <td>{{students.totalLab}} %</td>
+                  <td>{{students.totalExam}} %</td>
+                  <td>{{grade(students.totalQuiz, students.totalAttendance, students.totalAssignments, students.totalLab, students.totalExam)}} %</td>
                 </tr>
               </tbody>
             </table>
@@ -156,7 +162,7 @@
               <thead>
                 <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th ng-repeat="test in students.attendance_record"><a>{{test.activity_date}}</a></th>
+                  <th ng-repeat="actDate in students.attendance_record"><a>{{actDate.activity_date}}</a></th>
                 </tr>
               </thead>
               <tbody>
@@ -170,9 +176,11 @@
               <div class="today_attendance_inner u-cf"><span>{{dateToday}}</span>
                 <h4 class="title_border">Attendance</h4>
                 <ul>
+                  <li class="attendance_check"> <span>Present</span><span>Not Present</span></li>
                   <li ng-repeat="students in studentClassList"> 
                     <label>{{students.student_name}}
                       <input type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)"/>
+                      <input type="checkbox" ng-model="students.uncheckAttendance" ng-change="saveAttendance(students, dateToday)"/>
                     </label>
                   </li>
                   <div ng-click="closeAttendance()" class="btn_2 pull-right">Done</div>
@@ -225,27 +233,17 @@
             <div class="tab_top_content">
               <div ng-click="showQuizConfig()" class="btn_2">Add Quiz</div><span class="total_days"> </span>
             </div>
-            <table class="margin_top">
+            <table class="margin_top attendance_header">
               <thead>
-                <tr>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th>1-2-12 Monday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-13 Thuesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-14 Wednesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
+                  <th ng-repeat="actDate in students.quiz_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="students in studentClassList">
                   <td>{{students.student_name}}</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
+                  <td ng-repeat="scores in students.quiz_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -257,13 +255,13 @@
                     <input type="text" ng-model="newQuiz.totalScore" class="small_input"/>
                   </div>
                   <div class="input_group u-cf">
-                    <label class="quiz_name">Quiz name</label>
-                    <input type="text" ng-model="newQuiz.activity_name"/>
+                    <label>Quiz name</label>
+                    <input type="text" ng-model="newQuiz.activity_name" class="quiz_name"/>
                   </div>
                   <ul>
                     <li ng-repeat="students in studentClassList"> 
                       <label>{{students.student_name}}</label>
-                      <input type="text" ng-blur="saveQuiz(newQuiz)" class="input_quiz"/>
+                      <input type="text" ng-model="scoreQuiz.score" ng-blur="saveQuiz(newQuiz, students, scoreQuiz)" class="input_quiz"/>
                     </li>
                   </ul>
                   <div ng-click="closeQuiz()" class="btn_2 pull-right">Done</div>
@@ -272,6 +270,7 @@
             </div>
           </div>
         </div>
+        <!--student assignmets-->
         <div ng-show="studentAssignments" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -286,52 +285,46 @@
           <div class="tab">
             <h4></h4>
             <div class="tab_top_content">
-              <div class="btn_2">Add Assignments</div><span class="total_days">Total: <span>90</span></span>
+              <div ng-click="showAssignment()" class="btn_2">Add Assignments</div><span class="total_days"></span>
             </div>
-            <table class="margin_top">
+            <table class="margin_top attendance_header">
               <thead>
-                <tr>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th>1-2-12 Monday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-13 Thuesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-14 Wednesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
+                  <th ng-repeat="actDate in students.assignments_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz ( 24 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Xfol ( 27 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Nitsuj ( 25 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
-                </tr>
-                <tr>
-                  <td>Loda ( 29 )</td>
-                  <td>10/10</td>
-                  <td>17/20</td>
-                  <td>10/15</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.assignments_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="viewAssignConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newAssign.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Assignment name</label>
+                    <input type="text" ng-model="newAssign.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreAssign.score" ng-blur="saveAssign(newAssign, students, scoreAssign)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeAssign()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <!--laboratory-->
         <div ng-show="studentsLab" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -346,52 +339,46 @@
           <div class="tab">
             <h4></h4>
             <div class="tab_top_content">
-              <div class="btn_2">Add Laboratory</div><span class="total_days">Total: <span>120</span></span>
+              <div ng-click="showLab()" class="btn_2">Add Laboratory</div><span class="total_days"> </span>
             </div>
-            <table class="margin_top">
+            <table class="margin_top attendance_header">
               <thead>
-                <tr>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th>1-2-12 Monday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-13 Thuesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
-                  <th>1-2-14 Wednesday
-                    <div class="activity_name">activity #1</div>
-                  </th>
+                  <th ng-repeat="actDate in students.laboratory_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz ( 24 )</td>
-                  <td>15/15</td>
-                  <td>17/20</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Xfol ( 27 )</td>
-                  <td>15/15</td>
-                  <td>17/20</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Nitsuj ( 25 )</td>
-                  <td>15/15</td>
-                  <td>17/20</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Loda ( 29 )</td>
-                  <td>15/15</td>
-                  <td>17/20</td>
-                  <td>15/15</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.laboratory_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="viewLabConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newLab.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Laboratory name</label>
+                    <input type="text" ng-model="newLab.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreLab.score" ng-blur="saveLab(newLab, students, scoreLab)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeLab()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <!--view student exam-->
         <div ng-show="studentExam" class="user_view">
           <ul class="breadcrumb">
             <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
@@ -406,34 +393,43 @@
           <div class="tab">
             <h4></h4>
             <div class="tab_top_content">
-              <div class="btn_2">Add Exam</div>
+              <div ng-click="showExam()" class="btn_2">Add Exam</div>
             </div>
-            <table class="margin_top">
+            <table class="margin_top attendance_header">
               <thead>
-                <tr>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
                   <th>Name</th>
-                  <th>1-2-12 Monday</th>
+                  <th ng-repeat="actDate in students.exam_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Wizardz</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Xfol</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Nitsuj</td>
-                  <td>15/15</td>
-                </tr>
-                <tr>
-                  <td>Loda</td>
-                  <td>15/15</td>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.exam_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="viewExamConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newExam.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Exam name</label>
+                    <input type="text" ng-model="newExam.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreExam.score" ng-blur="saveExam(newExam, students, scoreExam)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeExam()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div ng-show="teacherSettings" class="user_view">

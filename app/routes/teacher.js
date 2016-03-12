@@ -59,15 +59,16 @@ router.put('/newAttendance', function(req, res){ //add attendance
 			}
 			res.json(data);
 		});
-	
+			
 })
-router.put('/newAttendance', function(req, res){ //add quiz
+router.put('/newQuiz', function(req, res){ //add quiz
 
-		dbStudents.update({student_id: req.body.student_id, class_id:req.body.class_id}, {$addToSet:{attendance_record:{ //update attendance
+		dbStudents.update({student_id: req.body.student_id, class_id:req.body.class_id}, {$addToSet:{quiz_record:{ 
 			activity_id: req.body.activity_id,
 			activity_name: req.body.activity_name,
 			activity_date: req.body.activity_date,
 			score: req.body.score,
+			totalScore: req.body.totalScore,
 			term: req.body.term
 		}}}, function(err, data){
 			if(err){
@@ -75,7 +76,58 @@ router.put('/newAttendance', function(req, res){ //add quiz
 			}
 			res.json(data);
 		});
-	
+
+})
+router.put('/newAssign', function(req, res){ //add Assignmets
+
+		dbStudents.update({student_id: req.body.student_id, class_id:req.body.class_id}, {$addToSet:{assignments_record:{ 
+			activity_id: req.body.activity_id,
+			activity_name: req.body.activity_name,
+			activity_date: req.body.activity_date,
+			score: req.body.score,
+			totalScore: req.body.totalScore,
+			term: req.body.term
+		}}}, function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);
+		});
+
+})
+router.put('/newLab', function(req, res){ //add Lab
+
+		dbStudents.update({student_id: req.body.student_id, class_id:req.body.class_id}, {$addToSet:{laboratory_record:{ 
+			activity_id: req.body.activity_id,
+			activity_name: req.body.activity_name,
+			activity_date: req.body.activity_date,
+			score: req.body.score,
+			totalScore: req.body.totalScore,
+			term: req.body.term
+		}}}, function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);
+		});
+
+})
+router.put('/newExam', function(req, res){ //add Exam
+
+		dbStudents.update({student_id: req.body.student_id, class_id:req.body.class_id}, {$addToSet:{exam_record:{ 
+			activity_id: req.body.activity_id,
+			activity_name: req.body.activity_name,
+			activity_date: req.body.activity_date,
+			score: req.body.score,
+			totalScore: req.body.totalScore,
+			term: req.body.term
+		}}}, function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);
+		});
+
 })
 router.put('/cancelAttendance', function(req, res){ //add attendance
 	dbStudents.findOne({student_id: req.body.student_id, class_id:req.body.class_id}, function(err, data){
@@ -90,6 +142,33 @@ router.put('/cancelAttendance', function(req, res){ //add attendance
 
 router.get('/classStudents/:id', function(req, res){
 	dbStudents.find({class_id: req.params.id}, function(err, data){
+		if (err){
+			return err;
+		};
+		res.json(data);
+	});
+});
+
+router.get('/viewPrelim/:id', function(req, res){
+	dbStudents.find({class_id: req.params.id},{attendance_record:{$elemMatch:{term: "prelim"}}}, function(err, data){
+		if (err){
+			return err;
+		};
+		res.json(data);
+	});
+});
+router.get('/viewMidterm/:id', function(req, res){
+	dbStudents.find({class_id: req.params.id},{attendance_record:{$elemMatch:{term: "midterm"}}}, function(err, data){
+		if (err){
+			return err;
+		};
+		res.json(data);
+	});
+});
+
+
+router.get('/getAttendance', function(req, res){
+	dbStudents.fint({student_id:req.body.student_id}, function(err, data){
 		if (err){
 			return err;
 		};

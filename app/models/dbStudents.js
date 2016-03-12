@@ -36,6 +36,7 @@ var	students  =new mongoose.Schema( {
 		activity_name: String,
 		activity_date: String,
 		score: Number,
+		totalScore: Number,
 		term: String
 	}],
 	assignments_record:[{
@@ -43,11 +44,16 @@ var	students  =new mongoose.Schema( {
 		activity_name: String,
 		activity_date: String,
 		score: Number,
+		totalScore: Number,
 		term: String
 	}],
 	exam_record:[{
-		term: String,
-		score: Number
+		activity_id: String,
+		activity_name: String,
+		activity_date: String,
+		score: Number,
+		totalScore: Number,
+		term: String
 	}]
 
 },{ collection : 'dbStudents'} );

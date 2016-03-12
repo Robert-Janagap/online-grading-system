@@ -437,6 +437,22 @@ z-index: 5;
             bottom: 0px;
             right: 0px;
         }
+        input:nth-child(1){
+            right: 91px;
+        }
+        input:nth-child(2){
+            right: 26px;
+        }
+    }
+}
+.attendance_check{
+    
+    text-align: right;
+    span{
+       font-size: 14px;
+       &:first-child{
+        margin-right: 10px;
+       } 
     }
 }
 .attendance_header{
@@ -444,6 +460,7 @@ z-index: 5;
         cursor: pointer;
         a{
             color:#fff;
+            display: block;
         }
     }
 }

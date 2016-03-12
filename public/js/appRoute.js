@@ -84,3 +84,16 @@ app.directive('signUp', function(){
 		}
 	};
 });
+// open sign up form
+app.directive('tabselect', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+		 	$('.content_view_tabs li').on('click', function(){
+		 		$(this).parent().children('li').removeClass('active');
+		 		$(this).addClass('active');
+		 	});
+		}
+	};
+});

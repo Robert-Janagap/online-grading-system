@@ -71,77 +71,41 @@ html(lang="en")
                                 tr
                                     td Prelim
                                     td 
-                                        a(href="") 20%
+                                        a(href="" ng-click="showGradingReportAssign()") {{studentClassInfo.totalAssignments}} %
                                     td 
-                                        a(href="") 10%
+                                        a(href="" ng-click="showGradingReportAtt()") {{studentClassInfo.totalAttendance}} %
                                     td 
-                                        a(href="" ng-click="showGradingReport()") 30%
+                                        a(href="" ng-click="showGradingReportLab()") {{studentClassInfo.totalLab}} %
                                     td 
-                                        a(href="") 10%
+                                        a(href="" ng-click="showGradingReportQuiz()") {{studentClassInfo.totalQuiz}} %
                                     td 
-                                        a(href="") 10%
-                                    td 89%
-                                tr
-                                    td Midterm
-                                    td 
-                                        a(href="") 20%
-                                    td 
-                                        a(href="") 10%
-                                    td 
-                                        a(href="" ng-click="showGradingReport()") 30%
-                                    td 
-                                        a(href="") 10%
-                                    td 
-                                        a(href="") 10%
-                                    td 85%
-                                tr
-                                    td Final
-                                    td 
-                                        a(href="") 20%
-                                    td 
-                                        a(href="") 10%
-                                    td 
-                                        a(href="" ng-click="showGradingReport()") 30%
-                                    td 
-                                        a(href="" ) 10%
-                                    td 
-                                        a(href="") 10%
-                                    td 78%
-                                tr
-                                    td Total Grade
-                                    td 
-                                    td 
-                                    td 
-                                    td 
-                                    td 
-                                    td 89%
+                                        a(href="" ng-click="showGradingReport()") {{studentClassInfo.totalExam}}
+                                    td  {{grade(studentClassInfo.totalAssignments, studentClassInfo.totalAttendance, studentClassInfo.totalLab, studentClassInfo.totalQuiz, studentClassInfo.totalExam)}} %
+        
                 .user_view(ng-show="gradingReport")
                     ul.breadcrumb
                             li
-                                a(href="" ng-click="viewSummary()") Algebra
+                                a(href="" ng-click="viewSummary2()") Algebra
                             li.active
                                 a(href="") Prelim
-                    h2.content_title Laboratory
+                    h2.content_title {{class_name}}
                     .tab
                         h4 Prelim Report
                         .tab_top_content
-                            span.total_days Total: <span>120</span>
-                        table.margin_top
+                            //- span.total_days Total: <span>120</span>
+                        table.margin_top.attendance_header
                             thead
                                 tr
                                     th Name
-                                    th 1-2-12 Monday
-                                        .activity_name Lab #1
-                                    th 1-2-13 Thuesday
-                                        .activity_name Lab #2
-                                    th 1-2-14 Wednesday
-                                        .activity_name Lab #3
+                                    th(ng-repeat = "actDate in studentClassInfo")
+                                        a {{actDate.activity_date}}
+                                        a(ng-hide="showAttendance").activity_name {{actDate.activity_name}}
+
                             tbody
-                                tr
-                                    td Wizardz ( 24 )
-                                    td 15/15
-                                    td 17/20
-                                    td 15/15
+                                tr 
+                                    td{{student_name}}
+                                    td(ng-repeat = "scores in studentClassInfo")
+                                        a {{scores.score}} <span ng-hide="showAttendance">/ {{scores.totalScore}}</span>
                 .user_view(ng-show="searchClass")
                     span.errMsg2(ng-show="noClassMgs") {{noClassMgs}}
                     h2.content_title {{classInfo.class_name}}
