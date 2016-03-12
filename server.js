@@ -12,7 +12,11 @@ var express =require( 'express' ),
     port =process.env.PORT || 3000;
 
 // connect to database
-mongoose.connect('mongodb://127.0.0.1/gradingSystem');
+// mongoose.connect('mongodb://127.0.0.1/gradingSystem');
+mongoose.connect('//<gradingSystem>:<robert>@ds011419.mlab.com:11419/heroku_r8mrg14f');
+
+// mongodb://<gradingSystem>:<robert>@ds011419.mlab.com:11419/heroku_r8mrg14f
+
 //database
 var users = mongoose.model('users', require('./app/models/dbUser.js'));
 var dbTeacher = mongoose.model('dbTeacher', require('./app/models/dbTeacher.js'));
